@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://slgyelj22x12"]
+
+[ext_resource type="Script" path="res://Scripts/Multiplayer.gd" id="1_2e0qm"]
+[ext_resource type="PackedScene" uid="uid://y7dettmxqljg" path="res://Scenes/Lobby.tscn" id="2_kvdfc"]
+
+[node name="Multiplayer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2e0qm")
+
+[node name="PreGame" type="Node2D" parent="."]
+
+[node name="Host" type="Button" parent="PreGame"]
+offset_left = 128.0
+offset_top = 320.0
+offset_right = 448.0
+offset_bottom = 448.0
+theme_override_font_sizes/font_size = 40
+text = "Host Game"
+
+[node name="Join" type="Button" parent="PreGame"]
+offset_left = 704.0
+offset_top = 320.0
+offset_right = 1024.0
+offset_bottom = 448.0
+theme_override_font_sizes/font_size = 40
+text = "Join Game"
+
+[node name="Lobby" parent="." instance=ExtResource("2_kvdfc")]
+
+[connection signal="pressed" from="PreGame/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="PreGame/Join" to="." method="_on_join_pressed"]
