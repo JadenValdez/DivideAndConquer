@@ -3,7 +3,13 @@ extends Node2D
 const COLOR_BUTTON = preload("res://Scenes/ColorButton.tscn")
 
 @onready var ready_players: Label = $ReadyPlayers
+
+@onready var current_color_background: ColorRect = $CurrentColor/CurrentColorBackground
+@onready var current_color_name: Label = $CurrentColor/CurrentColorName
+
 var color_column: int = 0
+var color_row: int = 0
+
 const starting_troops: Dictionary = {
 	0: "TroopLeader",
 	1: "TroopLeader",
@@ -15,20 +21,27 @@ const starting_troops: Dictionary = {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SignalBus.select_color.connect(_select_color)
+	SignalBus.update_ready_players_lobby.connect(_update_ready_players_lobby)
+	SignalBus.update_color_buttons.connect(_update_color_buttons)
+	
 	create_color_buttons()
 
 func create_color_buttons() -> void:
+	color_row = 0
 	color_column = 0
 	for color in Colors.COLORS:
 		var instance = COLOR_BUTTON.instantiate()
 		
 		instance.color_name = color
 		instance.button_color = Colors.COLORS[color].Color
-		instance.position = Vector2(250 + color_column * 50, 250)
+		instance.position = Vector2(100 + color_column * 150, 150 + color_row * 150)
 		
 		add_child(instance)
 		
 		color_column += 1
+		if color_column >= 4:
+			color_column = 0
+			color_row += 1
 
 func _select_color(id: int, color_name: String) -> void:
 	GameManager.Players[id].Name = color_name
@@ -42,3 +55,23 @@ func _select_color(id: int, color_name: String) -> void:
 		}
 	
 	SignalBus.update_color_buttons.emit()
+	SignalBus.update_ready_players_lobby.emit()
+	
+func _update_ready_players_lobby() -> void:
+	GameManager.ReadyPlayers = 0
+	for player in GameManager.Players:
+		if GameManager.Players[player].Name != "None":
+			GameManager.ReadyPlayers += 1
+	ready_players.text = "Players Ready:
+		" + str(GameManager.ReadyPlayers) + "/" + str(GameManager.TotalPlayers)
+
+func _update_color_buttons() -> void:
+	if GameManager.Players[multiplayer.get_unique_id()].Name == "None":
+		current_color_background.modulate = Color(1, 1, 1, 1)
+		current_color_name.text = "None"
+	else:
+		current_color_background.modulate = Colors.COLORS[GameManager.Players[multiplayer.get_unique_id()].Name].Color
+		current_color_name.text = GameManager.Players[multiplayer.get_unique_id()].Name
+
+func _on_start_game_pressed() -> void:
+	RPCFunctions.StartGame()

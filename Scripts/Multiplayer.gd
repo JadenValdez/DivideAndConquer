@@ -12,6 +12,8 @@ var peer
 
 
 func _ready() -> void:
+	SignalBus.start_game.connect(_start_game)
+	
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -22,12 +24,15 @@ func _ready() -> void:
 		Address = address_file.get_as_text()
 	if FileAccess.file_exists(port_res):
 		port = int(port_file.get_as_text())
+		
+	
 
 func peer_connected(id: int):
 	print("Player Connected " + str(id))
 	
 func peer_disconnected(id: int):
 	print("Player Disconnected " + str(id))
+	GameManager.TotalPlayers -= 1
 	GameManager.Players.erase(id)
 	var players = get_tree().get_nodes_in_group("Player")
 	for i in players:
@@ -53,7 +58,7 @@ func _host_game():
 	print("Waiting For Players!")
 	
 @rpc("any_peer")
-func _set_new_player(player_name: String, id: int):
+func _set_new_player(id: int):
 	if !GameManager.Players.has(id):
 		GameManager.Players[id] = {
 			"Name": "None",
@@ -61,10 +66,22 @@ func _set_new_player(player_name: String, id: int):
 			"Territory": [],
 			"Troops": {}
 			}
+
+	if multiplayer.is_server():
+		GameManager.TotalPlayers += 1
+		_send_player_information.rpc(GameManager.Players, GameManager.TotalPlayers)
+	
+@rpc("any_peer", "call_local")
+func _send_player_information(player_info: Dictionary, total_players: int):
+	GameManager.Players = player_info.duplicate(true)
+	GameManager.TotalPlayers = total_players
+	
+	SignalBus.update_color_buttons.emit()
+	SignalBus.update_ready_players_lobby.emit()
 	
 func _on_host_pressed() -> void:
 	_host_game()
-	_set_new_player.rpc(multiplayer.get_unique_id())
+	_set_new_player(multiplayer.get_unique_id())
 	_enter_lobby()
 
 func _on_join_pressed() -> void:
@@ -77,3 +94,8 @@ func _on_join_pressed() -> void:
 func _enter_lobby() -> void:
 	pre_game.hide()
 	lobby.show()
+
+func _start_game() -> void:
+	var scene = load("res://Scenes/MainBoard.tscn").instantiate()
+	get_tree().root.add_child(scene)
+	self.hide()

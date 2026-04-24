@@ -31,6 +31,7 @@ theme_override_font_sizes/font_size = 40
 text = "Join Game"
 
 [node name="Lobby" parent="." instance=ExtResource("2_kvdfc")]
+visible = false
 
 [connection signal="pressed" from="PreGame/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="PreGame/Join" to="." method="_on_join_pressed"]

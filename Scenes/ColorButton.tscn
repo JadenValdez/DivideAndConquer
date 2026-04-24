@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/ColorButton.gd" id="1_hd3pc"]
 
 [node name="ColorButton" type="Node2D"]
+scale = Vector2(3, 3)
 script = ExtResource("1_hd3pc")
 
 [node name="ColorRect" type="ColorRect" parent="."]
