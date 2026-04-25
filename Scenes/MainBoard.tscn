@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj4j158tv1i24"]
+[gd_scene load_steps=4 format=3 uid="uid://bj4j158tv1i24"]
 
 [ext_resource type="Script" path="res://Scripts/MainBoard.gd" id="1_2k0u8"]
 [ext_resource type="PackedScene" uid="uid://bstvhaqdh3i70" path="res://Scenes/Territory.tscn" id="1_jx5dg"]
+[ext_resource type="Script" path="res://Scripts/BoardLines.gd" id="3_l8gkv"]
 
 [node name="MainBoard" type="Node2D"]
 script = ExtResource("1_2k0u8")
@@ -92,45 +93,44 @@ tile_id = "A08"
 tile_type = "A"
 
 [node name="BO" type="Node2D" parent="."]
-position = Vector2(384, 128)
 
 [node name="B01" parent="BO" instance=ExtResource("1_jx5dg")]
-position = Vector2(200, -8)
+position = Vector2(584, 120)
 tile_id = "B01"
 tile_type = "BO"
 
 [node name="B03" parent="BO" instance=ExtResource("1_jx5dg")]
-position = Vector2(320, 64)
+position = Vector2(704, 192)
 tile_id = "B03"
 tile_type = "BO"
 
 [node name="B05" parent="BO" instance=ExtResource("1_jx5dg")]
-position = Vector2(328, 200)
+position = Vector2(712, 328)
 tile_id = "B05"
 tile_type = "BO"
 
 [node name="B07" parent="BO" instance=ExtResource("1_jx5dg")]
-position = Vector2(256, 320)
+position = Vector2(640, 448)
 tile_id = "B07"
 tile_type = "BO"
 
 [node name="B09" parent="BO" instance=ExtResource("1_jx5dg")]
-position = Vector2(120, 328)
+position = Vector2(504, 456)
 tile_id = "B09"
 tile_type = "BO"
 
 [node name="B11" parent="BO" instance=ExtResource("1_jx5dg")]
-position = Vector2(0, 256)
+position = Vector2(384, 384)
 tile_id = "B11"
 tile_type = "BO"
 
 [node name="B13" parent="BO" instance=ExtResource("1_jx5dg")]
-position = Vector2(-8, 120)
+position = Vector2(376, 248)
 tile_id = "B13"
 tile_type = "BO"
 
 [node name="B15" parent="BO" instance=ExtResource("1_jx5dg")]
-position = Vector2(64, 0)
+position = Vector2(448, 128)
 tile_id = "B15"
 tile_type = "BO"
 
@@ -268,3 +268,6 @@ tile_type = "D"
 position = Vector2(544, 288)
 tile_id = "E01"
 tile_type = "E"
+
+[node name="BoardLines" type="Node2D" parent="."]
+script = ExtResource("3_l8gkv")
