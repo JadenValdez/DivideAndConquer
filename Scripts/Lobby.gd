@@ -54,8 +54,8 @@ func _select_color(id: int, color_name: String) -> void:
 			"TP": UnitsInformation.Units[starting_troops[troop_id]].TP
 		}
 	
-	SignalBus.update_color_buttons.emit()
-	SignalBus.update_ready_players_lobby.emit()
+	RPCFunctions.UpdateColorButtons.rpc()
+	RPCFunctions.UpdateReadyPlayersLobby.rpc()
 	
 func _update_ready_players_lobby() -> void:
 	GameManager.ReadyPlayers = 0
@@ -74,4 +74,4 @@ func _update_color_buttons() -> void:
 		current_color_name.text = GameManager.Players[multiplayer.get_unique_id()].Name
 
 func _on_start_game_pressed() -> void:
-	RPCFunctions.StartGame()
+	RPCFunctions.StartGame.rpc()

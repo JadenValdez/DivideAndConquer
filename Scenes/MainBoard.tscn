@@ -1,3 +1,269 @@
-[gd_scene format=3 uid="uid://bj4j158tv1i24"]
+[gd_scene load_steps=3 format=3 uid="uid://bj4j158tv1i24"]
+
+[ext_resource type="Script" path="res://Scripts/MainBoard.gd" id="1_2k0u8"]
+[ext_resource type="PackedScene" uid="uid://bstvhaqdh3i70" path="res://Scenes/Territory.tscn" id="1_jx5dg"]
 
 [node name="MainBoard" type="Node2D"]
+script = ExtResource("1_2k0u8")
+
+[node name="Home" type="Node2D" parent="."]
+
+[node name="R" parent="Home" instance=ExtResource("1_jx5dg")]
+position = Vector2(640, 64)
+tile_id = "R"
+tile_type = "Home"
+
+[node name="O" parent="Home" instance=ExtResource("1_jx5dg")]
+position = Vector2(768, 192)
+tile_id = "O"
+tile_type = "Home"
+
+[node name="Y" parent="Home" instance=ExtResource("1_jx5dg")]
+position = Vector2(768, 384)
+tile_id = "Y"
+tile_type = "Home"
+
+[node name="G" parent="Home" instance=ExtResource("1_jx5dg")]
+position = Vector2(640, 512)
+tile_id = "G"
+tile_type = "Home"
+
+[node name="C" parent="Home" instance=ExtResource("1_jx5dg")]
+position = Vector2(448, 512)
+tile_id = "C"
+tile_type = "Home"
+
+[node name="B" parent="Home" instance=ExtResource("1_jx5dg")]
+position = Vector2(320, 384)
+tile_id = "B"
+tile_type = "Home"
+
+[node name="P" parent="Home" instance=ExtResource("1_jx5dg")]
+position = Vector2(320, 192)
+tile_id = "P"
+tile_type = "Home"
+
+[node name="M" parent="Home" instance=ExtResource("1_jx5dg")]
+position = Vector2(448, 64)
+tile_id = "M"
+tile_type = "Home"
+
+[node name="A" type="Node2D" parent="."]
+
+[node name="A01" parent="A" instance=ExtResource("1_jx5dg")]
+position = Vector2(544, 64)
+tile_id = "A01"
+tile_type = "A"
+
+[node name="A02" parent="A" instance=ExtResource("1_jx5dg")]
+position = Vector2(704, 128)
+tile_id = "A02"
+tile_type = "A"
+
+[node name="A03" parent="A" instance=ExtResource("1_jx5dg")]
+position = Vector2(768, 288)
+tile_id = "A03"
+tile_type = "A"
+
+[node name="A04" parent="A" instance=ExtResource("1_jx5dg")]
+position = Vector2(704, 448)
+tile_id = "A04"
+tile_type = "A"
+
+[node name="A05" parent="A" instance=ExtResource("1_jx5dg")]
+position = Vector2(544, 512)
+tile_id = "A05"
+tile_type = "A"
+
+[node name="A06" parent="A" instance=ExtResource("1_jx5dg")]
+position = Vector2(384, 448)
+tile_id = "A06"
+tile_type = "A"
+
+[node name="A07" parent="A" instance=ExtResource("1_jx5dg")]
+position = Vector2(320, 288)
+tile_id = "A07"
+tile_type = "A"
+
+[node name="A08" parent="A" instance=ExtResource("1_jx5dg")]
+position = Vector2(384, 128)
+tile_id = "A08"
+tile_type = "A"
+
+[node name="BO" type="Node2D" parent="."]
+position = Vector2(384, 128)
+
+[node name="B01" parent="BO" instance=ExtResource("1_jx5dg")]
+position = Vector2(200, -8)
+tile_id = "B01"
+tile_type = "BO"
+
+[node name="B03" parent="BO" instance=ExtResource("1_jx5dg")]
+position = Vector2(320, 64)
+tile_id = "B03"
+tile_type = "BO"
+
+[node name="B05" parent="BO" instance=ExtResource("1_jx5dg")]
+position = Vector2(328, 200)
+tile_id = "B05"
+tile_type = "BO"
+
+[node name="B07" parent="BO" instance=ExtResource("1_jx5dg")]
+position = Vector2(256, 320)
+tile_id = "B07"
+tile_type = "BO"
+
+[node name="B09" parent="BO" instance=ExtResource("1_jx5dg")]
+position = Vector2(120, 328)
+tile_id = "B09"
+tile_type = "BO"
+
+[node name="B11" parent="BO" instance=ExtResource("1_jx5dg")]
+position = Vector2(0, 256)
+tile_id = "B11"
+tile_type = "BO"
+
+[node name="B13" parent="BO" instance=ExtResource("1_jx5dg")]
+position = Vector2(-8, 120)
+tile_id = "B13"
+tile_type = "BO"
+
+[node name="B15" parent="BO" instance=ExtResource("1_jx5dg")]
+position = Vector2(64, 0)
+tile_id = "B15"
+tile_type = "BO"
+
+[node name="BE" type="Node2D" parent="."]
+
+[node name="B02" parent="BE" instance=ExtResource("1_jx5dg")]
+position = Vector2(640, 128)
+tile_id = "B02"
+tile_type = "BE"
+
+[node name="B04" parent="BE" instance=ExtResource("1_jx5dg")]
+position = Vector2(712, 248)
+tile_id = "B04"
+tile_type = "BE"
+
+[node name="B06" parent="BE" instance=ExtResource("1_jx5dg")]
+position = Vector2(704, 384)
+tile_id = "B06"
+tile_type = "BE"
+
+[node name="B08" parent="BE" instance=ExtResource("1_jx5dg")]
+position = Vector2(584, 456)
+tile_id = "B08"
+tile_type = "BE"
+
+[node name="B10" parent="BE" instance=ExtResource("1_jx5dg")]
+position = Vector2(448, 448)
+tile_id = "B10"
+tile_type = "BE"
+
+[node name="B12" parent="BE" instance=ExtResource("1_jx5dg")]
+position = Vector2(376, 328)
+tile_id = "B12"
+tile_type = "BE"
+
+[node name="B14" parent="BE" instance=ExtResource("1_jx5dg")]
+position = Vector2(384, 192)
+tile_id = "B14"
+tile_type = "BE"
+
+[node name="B16" parent="BE" instance=ExtResource("1_jx5dg")]
+position = Vector2(504, 120)
+tile_id = "B16"
+tile_type = "BE"
+
+[node name="CO" type="Node2D" parent="."]
+
+[node name="C01" parent="CO" instance=ExtResource("1_jx5dg")]
+position = Vector2(568, 168)
+tile_id = "C01"
+tile_type = "CO"
+
+[node name="C03" parent="CO" instance=ExtResource("1_jx5dg")]
+position = Vector2(664, 264)
+tile_id = "C03"
+tile_type = "CO"
+
+[node name="C05" parent="CO" instance=ExtResource("1_jx5dg")]
+position = Vector2(608, 352)
+tile_id = "C05"
+tile_type = "CO"
+
+[node name="C07" parent="CO" instance=ExtResource("1_jx5dg")]
+position = Vector2(520, 408)
+tile_id = "C07"
+tile_type = "CO"
+
+[node name="C09" parent="CO" instance=ExtResource("1_jx5dg")]
+position = Vector2(424, 312)
+tile_id = "C09"
+tile_type = "CO"
+
+[node name="C11" parent="CO" instance=ExtResource("1_jx5dg")]
+position = Vector2(480, 224)
+tile_id = "C11"
+tile_type = "CO"
+
+[node name="CE" type="Node2D" parent="."]
+
+[node name="C02" parent="CE" instance=ExtResource("1_jx5dg")]
+position = Vector2(608, 224)
+tile_id = "C02"
+tile_type = "CE"
+
+[node name="C04" parent="CE" instance=ExtResource("1_jx5dg")]
+position = Vector2(664, 312)
+tile_id = "C04"
+tile_type = "CE"
+
+[node name="C06" parent="CE" instance=ExtResource("1_jx5dg")]
+position = Vector2(568, 408)
+tile_id = "C06"
+tile_type = "CE"
+
+[node name="C08" parent="CE" instance=ExtResource("1_jx5dg")]
+position = Vector2(480, 352)
+tile_id = "C08"
+tile_type = "CE"
+
+[node name="C10" parent="CE" instance=ExtResource("1_jx5dg")]
+position = Vector2(424, 264)
+tile_id = "C10"
+tile_type = "CE"
+
+[node name="C12" parent="CE" instance=ExtResource("1_jx5dg")]
+position = Vector2(520, 168)
+tile_id = "C12"
+tile_type = "CE"
+
+[node name="D" type="Node2D" parent="."]
+
+[node name="D01" parent="D" instance=ExtResource("1_jx5dg")]
+position = Vector2(544, 232)
+tile_id = "D01"
+tile_type = "D"
+
+[node name="D02" parent="D" instance=ExtResource("1_jx5dg")]
+position = Vector2(600, 288)
+tile_id = "D02"
+tile_type = "D"
+
+[node name="D03" parent="D" instance=ExtResource("1_jx5dg")]
+position = Vector2(544, 344)
+tile_id = "D03"
+tile_type = "D"
+
+[node name="D04" parent="D" instance=ExtResource("1_jx5dg")]
+position = Vector2(488, 288)
+tile_id = "D04"
+tile_type = "D"
+
+[node name="E" type="Node2D" parent="."]
+
+[node name="E01" parent="E" instance=ExtResource("1_jx5dg")]
+position = Vector2(544, 288)
+tile_id = "E01"
+tile_type = "E"

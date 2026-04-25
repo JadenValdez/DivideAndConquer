@@ -15,7 +15,7 @@ func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				RPCFunctions.SelectColor(multiplayer.get_unique_id(), color_name)
+				RPCFunctions.SelectColor.rpc(multiplayer.get_unique_id(), color_name)
 
 func _update_color_buttons() -> void:
 	selected.hide()

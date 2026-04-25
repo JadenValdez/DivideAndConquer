@@ -76,8 +76,8 @@ func _send_player_information(player_info: Dictionary, total_players: int):
 	GameManager.Players = player_info.duplicate(true)
 	GameManager.TotalPlayers = total_players
 	
-	SignalBus.update_color_buttons.emit()
-	SignalBus.update_ready_players_lobby.emit()
+	RPCFunctions.UpdateColorButtons.rpc()
+	RPCFunctions.UpdateReadyPlayersLobby.rpc()
 	
 func _on_host_pressed() -> void:
 	_host_game()

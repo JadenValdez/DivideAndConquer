@@ -1,15 +1,23 @@
 extends Node2D
 
+@onready var color_rect: ColorRect = $ColorRect
+@onready var label: Label = $Label
+
 @export var tile_id: String
+@export var tile_type: String
 @export var neighbors: Array
+
 var current_owner: Dictionary = {
 	"Name": "None",
 	"Color": Color(1, 1, 1, 1)
 }
 
 func _ready() -> void:
-	pass # Replace with function body.
-
+	label.text = tile_id
+	
+	for id in GameManager.Players:
+		if GameManager.Players[id].Territory == [tile_id]:
+			color_rect.modulate = GameManager.Players[id].Color
 
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
