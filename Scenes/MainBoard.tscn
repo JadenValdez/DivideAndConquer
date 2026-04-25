@@ -8,6 +8,7 @@
 script = ExtResource("1_2k0u8")
 
 [node name="Home" type="Node2D" parent="."]
+position = Vector2(256, 0)
 
 [node name="R" parent="Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(640, 64)
@@ -18,7 +19,7 @@ tile_type = "Home"
 position = Vector2(768, 192)
 tile_id = "O"
 tile_type = "Home"
-neighbors = Array[String](["", "", "", ""])
+neighbors = ["", "", "", ""]
 
 [node name="Y" parent="Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(768, 384)
@@ -51,6 +52,7 @@ tile_id = "M"
 tile_type = "Home"
 
 [node name="A" type="Node2D" parent="."]
+position = Vector2(256, 0)
 
 [node name="A01" parent="A" instance=ExtResource("1_jx5dg")]
 position = Vector2(544, 64)
@@ -93,6 +95,7 @@ tile_id = "A08"
 tile_type = "A"
 
 [node name="BO" type="Node2D" parent="."]
+position = Vector2(256, 0)
 
 [node name="B01" parent="BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(584, 120)
@@ -135,6 +138,7 @@ tile_id = "B15"
 tile_type = "BO"
 
 [node name="BE" type="Node2D" parent="."]
+position = Vector2(256, 0)
 
 [node name="B02" parent="BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(640, 128)
@@ -177,6 +181,7 @@ tile_id = "B16"
 tile_type = "BE"
 
 [node name="CO" type="Node2D" parent="."]
+position = Vector2(256, 0)
 
 [node name="C01" parent="CO" instance=ExtResource("1_jx5dg")]
 position = Vector2(568, 168)
@@ -209,6 +214,7 @@ tile_id = "C11"
 tile_type = "CO"
 
 [node name="CE" type="Node2D" parent="."]
+position = Vector2(256, 0)
 
 [node name="C02" parent="CE" instance=ExtResource("1_jx5dg")]
 position = Vector2(608, 224)
@@ -241,6 +247,7 @@ tile_id = "C12"
 tile_type = "CE"
 
 [node name="D" type="Node2D" parent="."]
+position = Vector2(256, 0)
 
 [node name="D01" parent="D" instance=ExtResource("1_jx5dg")]
 position = Vector2(544, 232)
@@ -263,6 +270,7 @@ tile_id = "D04"
 tile_type = "D"
 
 [node name="E" type="Node2D" parent="."]
+position = Vector2(256, 0)
 
 [node name="E01" parent="E" instance=ExtResource("1_jx5dg")]
 position = Vector2(544, 288)
@@ -270,4 +278,5 @@ tile_id = "E01"
 tile_type = "E"
 
 [node name="BoardLines" type="Node2D" parent="."]
+position = Vector2(256, 0)
 script = ExtResource("3_l8gkv")

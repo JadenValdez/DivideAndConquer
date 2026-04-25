@@ -8,4 +8,5 @@ signal start_game
 signal get_tile_position
 signal set_tile_position
 
+signal select_troop
 signal select_tile
