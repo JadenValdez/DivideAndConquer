@@ -17,6 +17,7 @@ tile_type = "Home"
 position = Vector2(768, 192)
 tile_id = "O"
 tile_type = "Home"
+neighbors = Array[String](["", "", "", ""])
 
 [node name="Y" parent="Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(768, 384)

@@ -23,6 +23,7 @@ Colors="*res://Scripts/Colors.gd"
 RPCFunctions="*res://Scripts/RPCFunctions.gd"
 UnitsInformation="*res://Scripts/UnitsInformation.gd"
 TileResources="*res://Scripts/TileResources.gd"
+TileNeighbors="*res://Scripts/TileNeighbors.gd"
 
 [debug]
 

@@ -5,7 +5,7 @@ extends Node2D
 
 @export var tile_id: String
 @export var tile_type: String
-@export var neighbors: Array
+@export var neighbors: Array[String]
 
 var current_owner: Dictionary = {
 	"Name": "None",
@@ -13,6 +13,7 @@ var current_owner: Dictionary = {
 }
 
 func _ready() -> void:
+	neighbors = TileNeighbors.NEIGHBORS[tile_id]
 	label.text = tile_id
 	
 	for id in GameManager.Players:
