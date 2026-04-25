@@ -10,3 +10,8 @@ signal set_tile_position
 
 signal select_troop
 signal select_tile
+
+signal show_movement_spaces
+signal show_placement_spaces
+signal reset_tile_indicators
+signal plan_troop_move

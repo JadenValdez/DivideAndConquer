@@ -22,10 +22,12 @@ var location: String
 var tab_number: int 
 var tab_color: Color
 
+var move_amount: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SignalBus.select_troop.connect(_select_troop)
+	SignalBus.plan_troop_move.connect(_plan_troop_move)
 	
 	color_rect.modulate = tab_color
 	
@@ -33,6 +35,11 @@ func _ready() -> void:
 	troop_type_tp.text = troop_type + "(" + str(troop_tp) + ")"
 	troop_location.text = location
 	self.position = Vector2(0, tab_number * 50)
+	
+	if location == "None":
+		move_amount = 0
+	else:
+		move_amount = 1
 
 
 func _on_control_gui_input(event: InputEvent) -> void:
@@ -47,3 +54,70 @@ func _select_troop(id: int, _type: String, _troop_location: String) -> void:
 	else:
 		self.position = Vector2(0, tab_number * 50)
 		
+
+func _plan_troop_move(id: int, action: String, location_space: String) -> void:
+	if id == troop_id:
+		
+		if action == "Place":
+			location = location_space
+			troop_location.text = location
+			move_amount = 1
+			
+		elif action == "Pause":
+			match move_amount:
+				1:
+					move_1.show()
+					m_1_location.text = "X"
+					move_amount = 2
+					SignalBus.select_troop.emit(troop_id, troop_type, location)
+				2:
+					move_2.show()
+					m_2_location.text = "X"
+					move_amount = 3
+					SignalBus.select_troop.emit(troop_id, troop_type, location)
+				3:
+					move_3.show()
+					m_3_location.text = "X"
+					if troop_type == "TroopLeader":
+						move_amount = 4
+						SignalBus.select_troop.emit(troop_id, troop_type, location)
+					elif troop_type == "Mortar":
+						pass
+						#give the mortar a 4th move if it has not fired yet
+					else: 
+						SignalBus.select_troop.emit(0, troop_type, location)
+				4:
+					move_4.show()
+					m_4_location.text = "X"
+					SignalBus.select_troop.emit(0, troop_type, location)
+					
+		elif action == "Move":
+			match move_amount:
+				1:
+					move_1.show()
+					m_1_location.text = location_space
+					move_amount = 2
+					SignalBus.select_troop.emit(troop_id, troop_type, location_space)
+				2:
+					move_2.show()
+					m_2_location.text = location_space
+					move_amount = 3
+					SignalBus.select_troop.emit(troop_id, troop_type, location_space)
+				3:
+					move_3.show()
+					m_3_location.text = location_space
+					if troop_type == "TroopLeader":
+						move_amount = 4
+						SignalBus.select_troop.emit(troop_id, troop_type, location_space)
+					elif troop_type == "Mortar":
+						pass
+						#give the mortar a 4th move if it has not fired yet
+					else: 
+						SignalBus.select_troop.emit(0, troop_type, location_space)
+				4:
+					move_4.show()
+					m_4_location.text = location_space
+					SignalBus.select_troop.emit(0, troop_type, location_space)
+			
+		elif action == "Fire":
+			pass

@@ -22,6 +22,46 @@ text = "A01"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Place" type="Node2D" parent="."]
+visible = false
+
+[node name="Line2D" type="Line2D" parent="Place"]
+points = PackedVector2Array(0, -32, 0, 32)
+closed = true
+default_color = Color(0, 0, 1, 1)
+
+[node name="Line2D2" type="Line2D" parent="Place"]
+points = PackedVector2Array(-32, 0, 32, 0)
+closed = true
+default_color = Color(0, 0, 1, 1)
+
+[node name="Move" type="Node2D" parent="."]
+visible = false
+
+[node name="Line2D" type="Line2D" parent="Move"]
+points = PackedVector2Array(0, -32, 32, 0, 0, 32, -32, 0)
+closed = true
+default_color = Color(0, 1, 0, 1)
+
+[node name="Pause" type="Node2D" parent="."]
+visible = false
+
+[node name="Line2D" type="Line2D" parent="Pause"]
+points = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
+closed = true
+default_color = Color(1, 1, 0, 1)
+
+[node name="Fire" type="Node2D" parent="."]
+visible = false
+
+[node name="Line2D" type="Line2D" parent="Fire"]
+points = PackedVector2Array(-32, -32, 32, 32)
+default_color = Color(1, 0, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="Fire"]
+points = PackedVector2Array(32, -32, -32, 32)
+default_color = Color(1, 0, 0, 1)
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
