@@ -23,6 +23,9 @@ func _ready() -> void:
 	SignalBus.show_movement_spaces.connect(_show_movement_spaces)
 	SignalBus.reset_tile_indicators.connect(_reset_tile_indicators)
 	
+	SignalBus.mortar_firing_mode.connect(_mortar_firing_mode)
+	SignalBus.mortar_movement_mode.connect(_mortar_movement_mode)
+	
 	
 	neighbors = TileNeighbors.NEIGHBORS[tile_id]
 	label.text = tile_id
@@ -41,20 +44,32 @@ func _get_tile_position(id: String) -> void:
 	if id == tile_id:
 		SignalBus.set_tile_position.emit(self.position)
 		
-func _show_placement_spaces(spaces: Array) -> void:
+func _show_placement_spaces() -> void:
 	place.hide()
-	for id in spaces:
+	for id in GameManager.Players[multiplayer.get_unique_id()].Territory:
 		if id == tile_id:
 			place.show()
 		
-func _show_movement_spaces(spaces: Array, current_location: String) -> void:
+func _show_movement_spaces() -> void:
 	move.hide()
 	pause.hide()
-	for id in spaces:
+	for id in MovementLogic.MoveableSpaces:
 		if id == tile_id:
 			move.show()
-	if current_location == tile_id:
+	if MovementLogic.CurrentSpace == tile_id:
 		pause.show()
+
+func _mortar_firing_mode() -> void:
+	move.hide()
+	for id in MovementLogic.MoveableSpaces:
+		if id == tile_id:
+			fire.show()
+			
+func _mortar_movement_mode() -> void:
+	fire.hide()
+	for id in MovementLogic.MoveableSpaces:
+		if id == tile_id:
+			move.show()
 
 func _reset_tile_indicators() -> void:
 	place.hide()

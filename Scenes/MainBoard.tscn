@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj4j158tv1i24"]
+[gd_scene load_steps=5 format=3 uid="uid://bj4j158tv1i24"]
 
 [ext_resource type="Script" path="res://Scripts/MainBoard.gd" id="1_2k0u8"]
 [ext_resource type="PackedScene" uid="uid://bstvhaqdh3i70" path="res://Scenes/Territory.tscn" id="1_jx5dg"]
 [ext_resource type="Script" path="res://Scripts/BoardLines.gd" id="3_l8gkv"]
+[ext_resource type="Script" path="res://Scripts/MortarButtons.gd" id="4_oeokj"]
 
 [node name="MainBoard" type="Node2D"]
 script = ExtResource("1_2k0u8")
@@ -280,3 +281,23 @@ tile_type = "E"
 [node name="BoardLines" type="Node2D" parent="."]
 position = Vector2(256, 0)
 script = ExtResource("3_l8gkv")
+
+[node name="MortarButtons" type="Node2D" parent="."]
+script = ExtResource("4_oeokj")
+
+[node name="Fire" type="Button" parent="MortarButtons"]
+offset_left = 728.0
+offset_top = 576.0
+offset_right = 880.0
+offset_bottom = 607.0
+text = "Firing Mode"
+
+[node name="Move" type="Button" parent="MortarButtons"]
+offset_left = 728.0
+offset_top = 576.0
+offset_right = 880.0
+offset_bottom = 607.0
+text = "Movement Mode"
+
+[connection signal="pressed" from="MortarButtons/Fire" to="MortarButtons" method="_on_fire_pressed"]
+[connection signal="pressed" from="MortarButtons/Move" to="MortarButtons" method="_on_move_pressed"]
