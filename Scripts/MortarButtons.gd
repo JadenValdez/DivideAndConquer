@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var fire: Button = $Fire
 @onready var move: Button = $Move
+@onready var fire_label: Label = $FireLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,6 +15,11 @@ func _select_troop(troop_id: int, type: String, _location: String) -> void:
 	else:
 		fire.hide()
 		move.hide()
+		
+	if type == "MortarFire":
+		fire_label.show()
+	else:
+		fire_label.hide()
 
 func _on_fire_pressed() -> void:
 	move.show()

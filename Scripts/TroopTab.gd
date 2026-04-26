@@ -23,11 +23,13 @@ var tab_number: int
 var tab_color: Color
 
 var move_amount: int
+var fire_move: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SignalBus.select_troop.connect(_select_troop)
 	SignalBus.plan_troop_move.connect(_plan_troop_move)
+	SignalBus.get_attack_lists.connect(_get_attack_lists)
 	
 	color_rect.modulate = tab_color
 	
@@ -82,8 +84,11 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 						move_amount = 4
 						SignalBus.select_troop.emit(troop_id, troop_type, location)
 					elif troop_type == "Mortar":
-						pass
-						#give the mortar a 4th move if it has not fired yet
+						if fire_move == 0:
+							move_amount = 4
+							SignalBus.select_troop.emit(troop_id, "MortarFire", location_space)
+						else:
+							SignalBus.select_troop.emit(0, troop_type, location_space)
 					else: 
 						SignalBus.select_troop.emit(0, troop_type, location)
 				4:
@@ -110,9 +115,11 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 						move_amount = 4
 						SignalBus.select_troop.emit(troop_id, troop_type, location_space)
 					elif troop_type == "Mortar":
-						pass
-						#give the mortar a 4th move if it has not fired yet
-						#only firing is allowed
+						if fire_move == 0:
+							move_amount = 4
+							SignalBus.select_troop.emit(troop_id, "MortarFire", location_space)
+						else:
+							SignalBus.select_troop.emit(0, troop_type, location_space)
 					else: 
 						SignalBus.select_troop.emit(0, troop_type, location_space)
 				4:
@@ -127,23 +134,50 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					move_1.show()
 					move_1.modulate = Color(1, 0, 0, 1)
 					m_1_location.text = location_space
+					fire_move = 1
 					move_amount = 2
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				2:
 					move_2.show()
 					move_2.modulate = Color(1, 0, 0, 1)
 					m_2_location.text = location_space
+					fire_move = 2
 					move_amount = 3
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				1:
 					move_3.show()
 					move_3.modulate = Color(1, 0, 0, 1)
 					m_3_location.text = location_space
+					fire_move = 3
 					move_amount = 4
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				1:
 					move_4.show()
 					move_4.modulate = Color(1, 0, 0, 1)
 					m_4_location.text = location_space
+					fire_move = 4
 					move_amount = 5
 					SignalBus.select_troop.emit(0, troop_type, location_space)
+
+func _get_attack_lists() -> void:
+	if troop_type == "TroopLeader":
+		PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text, m_4_location.text]
+	elif troop_type == "Mortar":
+		PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text, m_4_location.text, fire_move]
+	else:
+		PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text]
+	move_1.hide()
+	move_2.hide()
+	move_3.hide()
+	move_4.hide()
+	move_1.modulate = Color(1, 1, 1, 1)
+	move_2.modulate = Color(1, 1, 1, 1)
+	move_3.modulate = Color(1, 1, 1, 1)
+	move_4.modulate = Color(1, 1, 1, 1)
+	m_1_location.text = "X"
+	m_2_location.text = "X"
+	m_3_location.text = "X"
+	m_4_location.text = "X"
+	move_amount = 1
+	fire_move = 0
+	SignalBus.check_if_attacks_ready.emit()

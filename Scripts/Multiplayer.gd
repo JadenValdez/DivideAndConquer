@@ -64,8 +64,14 @@ func _set_new_player(id: int):
 			"Name": "None",
 			"Color": Color(1, 1, 1, 1),
 			"Territory": [],
-			"Troops": {}
-			}
+			"Troops": {},
+			"Resources": {
+				"Food": 1,
+				"GP": 1,
+				"AP": 1,
+				"SP": 0
+			},
+		}
 
 	if multiplayer.is_server():
 		GameManager.TotalPlayers += 1

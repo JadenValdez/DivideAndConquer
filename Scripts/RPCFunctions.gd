@@ -16,3 +16,24 @@ func UpdateReadyPlayersLobby() -> void:
 func StartGame() -> void:
 	SignalBus.start_game.emit()
 	
+@rpc("call_local", "any_peer")
+func ReadyPlayer() -> void:
+	GameManager.ReadyPlayers += 1
+	SignalBus.update_ready_players_board.emit()
+	if GameManager.ReadyPlayers >= GameManager.TotalPlayers:
+		GameManager.ReadyPlayers = 0
+		SignalBus.get_attack_lists.emit()
+		#start battle sequence
+	
+@rpc("call_local", "any_peer")
+func NotReadyPlayer() -> void:
+	GameManager.ReadyPlayers -= 1
+
+@rpc("call_local", "any_peer")
+func SendAttackList(id: int, attack_list: Dictionary) -> void:
+	if multiplayer.is_server():
+		for player_id in GameManager.Players:
+			if !GameManager.AttackLists.has(player_id):
+				return
+		#run the simulation
+		GameManager.AttackLists = {}

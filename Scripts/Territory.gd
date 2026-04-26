@@ -61,9 +61,12 @@ func _show_movement_spaces() -> void:
 
 func _mortar_firing_mode() -> void:
 	move.hide()
+	pause.hide()
 	for id in MovementLogic.MoveableSpaces:
 		if id == tile_id:
 			fire.show()
+	if MovementLogic.CurrentSpace == tile_id:
+		pause.show()
 			
 func _mortar_movement_mode() -> void:
 	fire.hide()

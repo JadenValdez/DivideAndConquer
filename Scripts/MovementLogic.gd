@@ -20,9 +20,11 @@ func SelectTroop(troop_id: int, type: String, location: String) -> void:
 		SignalBus.reset_tile_indicators.emit()
 		return
 	
-	if type == "Mortar":
-		pass
-		#allow switching between firing mode and moving mode
+	if type == "MortarFire":
+		CurrentAction = "Fire"
+		MoveableSpaces = TileNeighbors.NEIGHBORS[location]
+		SignalBus.mortar_firing_mode.emit()
+		return
 	
 	if location == "None":
 		CurrentAction = "Place"

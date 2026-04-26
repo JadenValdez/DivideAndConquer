@@ -17,3 +17,7 @@ signal reset_tile_indicators
 signal plan_troop_move
 signal mortar_firing_mode
 signal mortar_movement_mode
+signal update_ready_players_board
+
+signal get_attack_lists
+signal check_if_attacks_ready

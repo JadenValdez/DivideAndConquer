@@ -1,279 +1,282 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj4j158tv1i24"]
+[gd_scene load_steps=6 format=3 uid="uid://bj4j158tv1i24"]
 
 [ext_resource type="Script" path="res://Scripts/MainBoard.gd" id="1_2k0u8"]
 [ext_resource type="PackedScene" uid="uid://bstvhaqdh3i70" path="res://Scenes/Territory.tscn" id="1_jx5dg"]
 [ext_resource type="Script" path="res://Scripts/BoardLines.gd" id="3_l8gkv"]
+[ext_resource type="Script" path="res://Scripts/ResourceTabs.gd" id="4_g2v8w"]
 [ext_resource type="Script" path="res://Scripts/MortarButtons.gd" id="4_oeokj"]
 
 [node name="MainBoard" type="Node2D"]
 script = ExtResource("1_2k0u8")
 
-[node name="Home" type="Node2D" parent="."]
+[node name="BoardSpaces" type="Node2D" parent="."]
+
+[node name="Home" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
 
-[node name="R" parent="Home" instance=ExtResource("1_jx5dg")]
+[node name="R" parent="BoardSpaces/Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(640, 64)
 tile_id = "R"
 tile_type = "Home"
 
-[node name="O" parent="Home" instance=ExtResource("1_jx5dg")]
+[node name="O" parent="BoardSpaces/Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(768, 192)
 tile_id = "O"
 tile_type = "Home"
 neighbors = ["", "", "", ""]
 
-[node name="Y" parent="Home" instance=ExtResource("1_jx5dg")]
+[node name="Y" parent="BoardSpaces/Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(768, 384)
 tile_id = "Y"
 tile_type = "Home"
 
-[node name="G" parent="Home" instance=ExtResource("1_jx5dg")]
+[node name="G" parent="BoardSpaces/Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(640, 512)
 tile_id = "G"
 tile_type = "Home"
 
-[node name="C" parent="Home" instance=ExtResource("1_jx5dg")]
+[node name="C" parent="BoardSpaces/Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(448, 512)
 tile_id = "C"
 tile_type = "Home"
 
-[node name="B" parent="Home" instance=ExtResource("1_jx5dg")]
+[node name="B" parent="BoardSpaces/Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(320, 384)
 tile_id = "B"
 tile_type = "Home"
 
-[node name="P" parent="Home" instance=ExtResource("1_jx5dg")]
+[node name="P" parent="BoardSpaces/Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(320, 192)
 tile_id = "P"
 tile_type = "Home"
 
-[node name="M" parent="Home" instance=ExtResource("1_jx5dg")]
+[node name="M" parent="BoardSpaces/Home" instance=ExtResource("1_jx5dg")]
 position = Vector2(448, 64)
 tile_id = "M"
 tile_type = "Home"
 
-[node name="A" type="Node2D" parent="."]
+[node name="A" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
 
-[node name="A01" parent="A" instance=ExtResource("1_jx5dg")]
+[node name="A01" parent="BoardSpaces/A" instance=ExtResource("1_jx5dg")]
 position = Vector2(544, 64)
 tile_id = "A01"
 tile_type = "A"
 
-[node name="A02" parent="A" instance=ExtResource("1_jx5dg")]
+[node name="A02" parent="BoardSpaces/A" instance=ExtResource("1_jx5dg")]
 position = Vector2(704, 128)
 tile_id = "A02"
 tile_type = "A"
 
-[node name="A03" parent="A" instance=ExtResource("1_jx5dg")]
+[node name="A03" parent="BoardSpaces/A" instance=ExtResource("1_jx5dg")]
 position = Vector2(768, 288)
 tile_id = "A03"
 tile_type = "A"
 
-[node name="A04" parent="A" instance=ExtResource("1_jx5dg")]
+[node name="A04" parent="BoardSpaces/A" instance=ExtResource("1_jx5dg")]
 position = Vector2(704, 448)
 tile_id = "A04"
 tile_type = "A"
 
-[node name="A05" parent="A" instance=ExtResource("1_jx5dg")]
+[node name="A05" parent="BoardSpaces/A" instance=ExtResource("1_jx5dg")]
 position = Vector2(544, 512)
 tile_id = "A05"
 tile_type = "A"
 
-[node name="A06" parent="A" instance=ExtResource("1_jx5dg")]
+[node name="A06" parent="BoardSpaces/A" instance=ExtResource("1_jx5dg")]
 position = Vector2(384, 448)
 tile_id = "A06"
 tile_type = "A"
 
-[node name="A07" parent="A" instance=ExtResource("1_jx5dg")]
+[node name="A07" parent="BoardSpaces/A" instance=ExtResource("1_jx5dg")]
 position = Vector2(320, 288)
 tile_id = "A07"
 tile_type = "A"
 
-[node name="A08" parent="A" instance=ExtResource("1_jx5dg")]
+[node name="A08" parent="BoardSpaces/A" instance=ExtResource("1_jx5dg")]
 position = Vector2(384, 128)
 tile_id = "A08"
 tile_type = "A"
 
-[node name="BO" type="Node2D" parent="."]
+[node name="BO" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
 
-[node name="B01" parent="BO" instance=ExtResource("1_jx5dg")]
+[node name="B01" parent="BoardSpaces/BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(584, 120)
 tile_id = "B01"
 tile_type = "BO"
 
-[node name="B03" parent="BO" instance=ExtResource("1_jx5dg")]
+[node name="B03" parent="BoardSpaces/BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(704, 192)
 tile_id = "B03"
 tile_type = "BO"
 
-[node name="B05" parent="BO" instance=ExtResource("1_jx5dg")]
+[node name="B05" parent="BoardSpaces/BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(712, 328)
 tile_id = "B05"
 tile_type = "BO"
 
-[node name="B07" parent="BO" instance=ExtResource("1_jx5dg")]
+[node name="B07" parent="BoardSpaces/BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(640, 448)
 tile_id = "B07"
 tile_type = "BO"
 
-[node name="B09" parent="BO" instance=ExtResource("1_jx5dg")]
+[node name="B09" parent="BoardSpaces/BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(504, 456)
 tile_id = "B09"
 tile_type = "BO"
 
-[node name="B11" parent="BO" instance=ExtResource("1_jx5dg")]
+[node name="B11" parent="BoardSpaces/BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(384, 384)
 tile_id = "B11"
 tile_type = "BO"
 
-[node name="B13" parent="BO" instance=ExtResource("1_jx5dg")]
+[node name="B13" parent="BoardSpaces/BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(376, 248)
 tile_id = "B13"
 tile_type = "BO"
 
-[node name="B15" parent="BO" instance=ExtResource("1_jx5dg")]
+[node name="B15" parent="BoardSpaces/BO" instance=ExtResource("1_jx5dg")]
 position = Vector2(448, 128)
 tile_id = "B15"
 tile_type = "BO"
 
-[node name="BE" type="Node2D" parent="."]
+[node name="BE" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
 
-[node name="B02" parent="BE" instance=ExtResource("1_jx5dg")]
+[node name="B02" parent="BoardSpaces/BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(640, 128)
 tile_id = "B02"
 tile_type = "BE"
 
-[node name="B04" parent="BE" instance=ExtResource("1_jx5dg")]
+[node name="B04" parent="BoardSpaces/BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(712, 248)
 tile_id = "B04"
 tile_type = "BE"
 
-[node name="B06" parent="BE" instance=ExtResource("1_jx5dg")]
+[node name="B06" parent="BoardSpaces/BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(704, 384)
 tile_id = "B06"
 tile_type = "BE"
 
-[node name="B08" parent="BE" instance=ExtResource("1_jx5dg")]
+[node name="B08" parent="BoardSpaces/BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(584, 456)
 tile_id = "B08"
 tile_type = "BE"
 
-[node name="B10" parent="BE" instance=ExtResource("1_jx5dg")]
+[node name="B10" parent="BoardSpaces/BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(448, 448)
 tile_id = "B10"
 tile_type = "BE"
 
-[node name="B12" parent="BE" instance=ExtResource("1_jx5dg")]
+[node name="B12" parent="BoardSpaces/BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(376, 328)
 tile_id = "B12"
 tile_type = "BE"
 
-[node name="B14" parent="BE" instance=ExtResource("1_jx5dg")]
+[node name="B14" parent="BoardSpaces/BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(384, 192)
 tile_id = "B14"
 tile_type = "BE"
 
-[node name="B16" parent="BE" instance=ExtResource("1_jx5dg")]
+[node name="B16" parent="BoardSpaces/BE" instance=ExtResource("1_jx5dg")]
 position = Vector2(504, 120)
 tile_id = "B16"
 tile_type = "BE"
 
-[node name="CO" type="Node2D" parent="."]
+[node name="CO" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
 
-[node name="C01" parent="CO" instance=ExtResource("1_jx5dg")]
+[node name="C01" parent="BoardSpaces/CO" instance=ExtResource("1_jx5dg")]
 position = Vector2(568, 168)
 tile_id = "C01"
 tile_type = "CO"
 
-[node name="C03" parent="CO" instance=ExtResource("1_jx5dg")]
+[node name="C03" parent="BoardSpaces/CO" instance=ExtResource("1_jx5dg")]
 position = Vector2(664, 264)
 tile_id = "C03"
 tile_type = "CO"
 
-[node name="C05" parent="CO" instance=ExtResource("1_jx5dg")]
+[node name="C05" parent="BoardSpaces/CO" instance=ExtResource("1_jx5dg")]
 position = Vector2(608, 352)
 tile_id = "C05"
 tile_type = "CO"
 
-[node name="C07" parent="CO" instance=ExtResource("1_jx5dg")]
+[node name="C07" parent="BoardSpaces/CO" instance=ExtResource("1_jx5dg")]
 position = Vector2(520, 408)
 tile_id = "C07"
 tile_type = "CO"
 
-[node name="C09" parent="CO" instance=ExtResource("1_jx5dg")]
+[node name="C09" parent="BoardSpaces/CO" instance=ExtResource("1_jx5dg")]
 position = Vector2(424, 312)
 tile_id = "C09"
 tile_type = "CO"
 
-[node name="C11" parent="CO" instance=ExtResource("1_jx5dg")]
+[node name="C11" parent="BoardSpaces/CO" instance=ExtResource("1_jx5dg")]
 position = Vector2(480, 224)
 tile_id = "C11"
 tile_type = "CO"
 
-[node name="CE" type="Node2D" parent="."]
+[node name="CE" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
 
-[node name="C02" parent="CE" instance=ExtResource("1_jx5dg")]
+[node name="C02" parent="BoardSpaces/CE" instance=ExtResource("1_jx5dg")]
 position = Vector2(608, 224)
 tile_id = "C02"
 tile_type = "CE"
 
-[node name="C04" parent="CE" instance=ExtResource("1_jx5dg")]
+[node name="C04" parent="BoardSpaces/CE" instance=ExtResource("1_jx5dg")]
 position = Vector2(664, 312)
 tile_id = "C04"
 tile_type = "CE"
 
-[node name="C06" parent="CE" instance=ExtResource("1_jx5dg")]
+[node name="C06" parent="BoardSpaces/CE" instance=ExtResource("1_jx5dg")]
 position = Vector2(568, 408)
 tile_id = "C06"
 tile_type = "CE"
 
-[node name="C08" parent="CE" instance=ExtResource("1_jx5dg")]
+[node name="C08" parent="BoardSpaces/CE" instance=ExtResource("1_jx5dg")]
 position = Vector2(480, 352)
 tile_id = "C08"
 tile_type = "CE"
 
-[node name="C10" parent="CE" instance=ExtResource("1_jx5dg")]
+[node name="C10" parent="BoardSpaces/CE" instance=ExtResource("1_jx5dg")]
 position = Vector2(424, 264)
 tile_id = "C10"
 tile_type = "CE"
 
-[node name="C12" parent="CE" instance=ExtResource("1_jx5dg")]
+[node name="C12" parent="BoardSpaces/CE" instance=ExtResource("1_jx5dg")]
 position = Vector2(520, 168)
 tile_id = "C12"
 tile_type = "CE"
 
-[node name="D" type="Node2D" parent="."]
+[node name="D" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
 
-[node name="D01" parent="D" instance=ExtResource("1_jx5dg")]
+[node name="D01" parent="BoardSpaces/D" instance=ExtResource("1_jx5dg")]
 position = Vector2(544, 232)
 tile_id = "D01"
 tile_type = "D"
 
-[node name="D02" parent="D" instance=ExtResource("1_jx5dg")]
+[node name="D02" parent="BoardSpaces/D" instance=ExtResource("1_jx5dg")]
 position = Vector2(600, 288)
 tile_id = "D02"
 tile_type = "D"
 
-[node name="D03" parent="D" instance=ExtResource("1_jx5dg")]
+[node name="D03" parent="BoardSpaces/D" instance=ExtResource("1_jx5dg")]
 position = Vector2(544, 344)
 tile_id = "D03"
 tile_type = "D"
 
-[node name="D04" parent="D" instance=ExtResource("1_jx5dg")]
+[node name="D04" parent="BoardSpaces/D" instance=ExtResource("1_jx5dg")]
 position = Vector2(488, 288)
 tile_id = "D04"
 tile_type = "D"
 
-[node name="E" type="Node2D" parent="."]
+[node name="E" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
 
-[node name="E01" parent="E" instance=ExtResource("1_jx5dg")]
+[node name="E01" parent="BoardSpaces/E" instance=ExtResource("1_jx5dg")]
 position = Vector2(544, 288)
 tile_id = "E01"
 tile_type = "E"
@@ -282,10 +285,81 @@ tile_type = "E"
 position = Vector2(256, 0)
 script = ExtResource("3_l8gkv")
 
+[node name="ResourceTabs" type="Node2D" parent="."]
+script = ExtResource("4_g2v8w")
+
+[node name="Food" type="Node2D" parent="ResourceTabs"]
+
+[node name="FoodBackground" type="ColorRect" parent="ResourceTabs/Food"]
+offset_left = 1056.0
+offset_right = 1152.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.501961)
+
+[node name="FoodLabel" type="Label" parent="ResourceTabs/Food"]
+offset_left = 1056.0
+offset_right = 1152.0
+offset_bottom = 40.0
+text = "Food: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GP" type="Node2D" parent="ResourceTabs"]
+position = Vector2(0, 42)
+
+[node name="GPBackground" type="ColorRect" parent="ResourceTabs/GP"]
+offset_left = 1056.0
+offset_right = 1152.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.501961)
+
+[node name="GPLabel" type="Label" parent="ResourceTabs/GP"]
+offset_left = 1056.0
+offset_right = 1152.0
+offset_bottom = 40.0
+text = "GP: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AP" type="Node2D" parent="ResourceTabs"]
+position = Vector2(0, 84)
+
+[node name="APBackground" type="ColorRect" parent="ResourceTabs/AP"]
+offset_left = 1056.0
+offset_right = 1152.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.501961)
+
+[node name="APLabel" type="Label" parent="ResourceTabs/AP"]
+offset_left = 1056.0
+offset_right = 1152.0
+offset_bottom = 40.0
+text = "AP: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SP" type="Node2D" parent="ResourceTabs"]
+position = Vector2(0, 126)
+
+[node name="SPBackground" type="ColorRect" parent="ResourceTabs/SP"]
+offset_left = 1056.0
+offset_right = 1152.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.501961)
+
+[node name="SPLabel" type="Label" parent="ResourceTabs/SP"]
+offset_left = 1056.0
+offset_right = 1152.0
+offset_bottom = 40.0
+text = "SP: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MortarButtons" type="Node2D" parent="."]
 script = ExtResource("4_oeokj")
 
 [node name="Fire" type="Button" parent="MortarButtons"]
+visible = false
 offset_left = 728.0
 offset_top = 576.0
 offset_right = 880.0
@@ -293,11 +367,48 @@ offset_bottom = 607.0
 text = "Firing Mode"
 
 [node name="Move" type="Button" parent="MortarButtons"]
+visible = false
 offset_left = 728.0
 offset_top = 576.0
 offset_right = 880.0
 offset_bottom = 607.0
 text = "Movement Mode"
 
+[node name="FireLabel" type="Label" parent="MortarButtons"]
+visible = false
+offset_left = 728.0
+offset_top = 576.0
+offset_right = 880.0
+offset_bottom = 607.0
+text = "Firing Mode Only"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Undo" type="Button" parent="."]
+offset_left = 496.0
+offset_top = 576.0
+offset_right = 616.0
+offset_bottom = 624.0
+text = "Undo"
+
+[node name="Ready" type="Button" parent="."]
+offset_left = 1024.0
+offset_top = 576.0
+offset_right = 1144.0
+offset_bottom = 623.0
+text = "Ready Up"
+
+[node name="ReadyPlayersLabel" type="Label" parent="."]
+offset_left = 1008.0
+offset_top = 488.0
+offset_right = 1152.0
+offset_bottom = 552.0
+text = "Ready:
+0/0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="MortarButtons/Fire" to="MortarButtons" method="_on_fire_pressed"]
 [connection signal="pressed" from="MortarButtons/Move" to="MortarButtons" method="_on_move_pressed"]
+[connection signal="pressed" from="Undo" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="Ready" to="." method="_on_ready_pressed"]
