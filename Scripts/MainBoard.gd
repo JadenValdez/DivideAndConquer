@@ -22,6 +22,7 @@ func create_initial_units() -> void:
 		instance.troop_type = GameManager.Players[multiplayer.get_unique_id()].Troops[troop].Type
 		instance.troop_tp = GameManager.Players[multiplayer.get_unique_id()].Troops[troop].TP
 		instance.location = Colors.COLORS[GameManager.Players[multiplayer.get_unique_id()].Name].Base
+		instance.recently_crafted = false
 		
 		instance.tab_number = tab_number
 		instance.tab_color = GameManager.Players[multiplayer.get_unique_id()].Color
@@ -31,7 +32,7 @@ func create_initial_units() -> void:
 
 
 func _on_undo_pressed() -> void:
-	pass # Replace with function body.
+	SignalBus.undo_move.emit()
 
 
 func _on_ready_pressed() -> void:

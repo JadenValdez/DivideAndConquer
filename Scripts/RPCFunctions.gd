@@ -32,8 +32,9 @@ func NotReadyPlayer() -> void:
 @rpc("call_local", "any_peer")
 func SendAttackList(id: int, attack_list: Dictionary) -> void:
 	if multiplayer.is_server():
+		GameManager.AttackLists[id] = attack_list
 		for player_id in GameManager.Players:
 			if !GameManager.AttackLists.has(player_id):
 				return
-		#run the simulation
+		ConquestSimulation.SimulateConquest(GameManager.AttackLists.duplicate(true))
 		GameManager.AttackLists = {}

@@ -15,6 +15,7 @@ signal show_movement_spaces
 signal show_placement_spaces
 signal reset_tile_indicators
 signal plan_troop_move
+signal undo_move
 signal mortar_firing_mode
 signal mortar_movement_mode
 signal update_ready_players_board

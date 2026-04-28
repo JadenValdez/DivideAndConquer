@@ -25,10 +25,13 @@ var tab_color: Color
 var move_amount: int
 var fire_move: int = 0
 
+var recently_crafted: bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SignalBus.select_troop.connect(_select_troop)
 	SignalBus.plan_troop_move.connect(_plan_troop_move)
+	SignalBus.undo_move.connect(_undo_move)
 	SignalBus.get_attack_lists.connect(_get_attack_lists)
 	
 	color_rect.modulate = tab_color
@@ -159,13 +162,43 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					move_amount = 5
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 
+func _undo_move() -> void:
+	if troop_id == PlayerInformation.SelectedTroop:
+		match move_amount:
+			0: 
+				pass
+			1:
+				pass
+			2:
+				move_2.hide()
+				move_2.modulate = Color(0, 0, 0, 1)
+				m_2_location.text = "X"
+				if fire_move == 2:
+					fire_move = 0
+				move_amount = 1
+				SignalBus.select_troop.emit(troop_id, troop_type, location_space)
+	
 func _get_attack_lists() -> void:
-	if troop_type == "TroopLeader":
-		PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text, m_4_location.text]
-	elif troop_type == "Mortar":
-		PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text, m_4_location.text, fire_move]
-	else:
-		PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text]
+	#if troop_type == "TroopLeader":
+		#PlayerInformation.AttackList[troop_id] = {
+			#"Location": location, 
+			#"M1", m_1_location.text, 
+			#m_2_location.text, m_3_location.text, m_4_location.text
+			#}
+	#elif troop_type == "Mortar":
+		#PlayerInformation.AttackList[troop_id] = [location, m_1_location.text, m_2_location.text, m_3_location.text, m_4_location.text, fire_move]
+	#else:
+		#PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text]
+	PlayerInformation.AttackList[troop_id] = {
+		"Type": troop_type,
+		"TP": troop_tp,
+		"Location": location, 
+		"FireMove": fire_move,
+		"M1": m_1_location.text, 
+		"M2": m_2_location.text, 
+		"M3": m_3_location.text, 
+		"M4": m_4_location.text
+		}
 	move_1.hide()
 	move_2.hide()
 	move_3.hide()
