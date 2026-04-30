@@ -242,6 +242,7 @@ func _get_attack_lists() -> void:
 	#else:
 		#PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text]
 	PlayerInformation.AttackList[troop_id] = {
+		"Team": GameManager.Players[multiplayer.get_unique_id()].Name,
 		"Type": troop_type,
 		"TP": troop_tp,
 		"Location": location, 
@@ -251,6 +252,7 @@ func _get_attack_lists() -> void:
 		"M3": m_3_location.text, 
 		"M4": m_4_location.text
 		}
+		
 	move_1.hide()
 	move_2.hide()
 	move_3.hide()
@@ -263,6 +265,12 @@ func _get_attack_lists() -> void:
 	m_2_location.text = "X"
 	m_3_location.text = "X"
 	m_4_location.text = "X"
-	move_amount = 1
+	
+	if recently_crafted && location == "None":
+		move_amount = 0
+	else:
+		move_amount = 1
+		recently_crafted = false
+	
 	fire_move = 0
 	SignalBus.check_if_attacks_ready.emit()

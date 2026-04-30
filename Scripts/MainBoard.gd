@@ -4,9 +4,12 @@ var tab_number: int = 0
 @onready var ready_button: Button = $Ready
 @onready var ready_players_label: Label = $ReadyPlayersLabel
 
+@onready var undo: Button = $Undo
+
 const TROOP_TAB = preload("res://Scenes/TroopTab.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	SignalBus.select_troop.connect(_select_troop)
 	SignalBus.update_ready_players_board.connect(_update_ready_players_board)
 	GameManager.ReadyPlayers = 0
 	ready_players_label.text = "Ready: 
@@ -29,6 +32,12 @@ func create_initial_units() -> void:
 		add_child(instance)
 		
 		tab_number += 1
+
+func _select_troop(id: int, _type: String, _location: String) -> void:
+	if id == 0:
+		undo.hide()
+	else:
+		undo.show()
 
 
 func _on_undo_pressed() -> void:

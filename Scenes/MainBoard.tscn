@@ -385,6 +385,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Undo" type="Button" parent="."]
+visible = false
 offset_left = 496.0
 offset_top = 576.0
 offset_right = 616.0
