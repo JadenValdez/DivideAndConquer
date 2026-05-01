@@ -1,6 +1,7 @@
 extends Node
 
 var TroopLocations: Dictionary = {}
+var TroopInfo: Dictionary = {}
 var TroopStatus: Dictionary = {}
 
 func _ready() -> void:
@@ -18,22 +19,41 @@ func _ready() -> void:
 
 func SimulateConquest(attack_lists: Dictionary) -> void:
 	
+	TroopInfo = {}
 	TroopLocations = {}
-	for player_id in attack_lists:
-		for troop in attack_lists[player_id]:
-			if attack_lists[player_id][troop].Location != "None":
-				TroopLocations[attack_lists[player_id][troop].Location][troop] = {
-					"Team": attack_lists[player_id][troop].Team,
-					"Type": attack_lists[player_id][troop].Type,
-					"TP": attack_lists[player_id][troop].TP
-				}
+	TroopStatus = {}
+	
+	#puts each troop at their locations
+	for team in attack_lists:
+		for troop in attack_lists[team]:
+			TroopInfo[troop] = {
+				"Team": attack_lists[team][troop].Team,
+				"Type": attack_lists[team][troop].Type,
+				"TP": attack_lists[team][troop].TP,
+				"FireMove": attack_lists[team][troop].FireMove,
+				"M1": attack_lists[team][troop].M1, 
+				"M2": attack_lists[team][troop].M2, 
+				"M3": attack_lists[team][troop].M3, 
+				"M4": attack_lists[team][troop].M4
+			}
+			
+			
+			if attack_lists[team][troop].Location != "None":
+				
+				if !TroopLocations.has(attack_lists[team][troop].Location):
+					TroopLocations[attack_lists[team][troop].Location] = []
+					
+				TroopLocations[attack_lists[team][troop].Location].append(troop)
 				
 				TroopStatus[troop] = "Active"
 	
+	#M1 moves
 	for location in TroopLocations:
 		for troop in TroopLocations[location]:
-			if attack_lists[player_id][troop].M1 != "X":
-				if attack_lists[player_id][troop].FireMove == 1:
+			if TroopLocations[location][troop].M1 != "X":
+				if TroopLocations[location][troop].FireMove == 1:
 					pass
 				else:
-					pass
+					TroopLocations[[location][troop].M1]]
+					TroopLocations[location].erase(troop)
+					Tr
