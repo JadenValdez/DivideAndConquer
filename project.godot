@@ -27,6 +27,7 @@ TileNeighbors="*res://Scripts/TileNeighbors.gd"
 PlayerInformation="*res://Scripts/PlayerInformation.gd"
 MovementLogic="*res://Scripts/MovementLogic.gd"
 ConquestSimulation="*res://Scripts/ConquestSimulation.gd"
+LocationInfo="*res://Scripts/LocationInfo.gd"
 
 [debug]
 

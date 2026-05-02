@@ -1,8 +1,8 @@
 extends Node
 
 var TroopLocations: Dictionary = {}
+var LocationBattles: Dictionary = {}
 var TroopInfo: Dictionary = {}
-var TroopStatus: Dictionary = {}
 
 func _ready() -> void:
 	pass # Replace with function body.
@@ -21,7 +21,6 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 	
 	TroopInfo = {}
 	TroopLocations = {}
-	TroopStatus = {}
 	
 	#puts each troop at their locations
 	for team in attack_lists:
@@ -41,19 +40,33 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 			if attack_lists[team][troop].Location != "None":
 				
 				if !TroopLocations.has(attack_lists[team][troop].Location):
-					TroopLocations[attack_lists[team][troop].Location] = []
+					TroopLocations[attack_lists[team][troop].Location] = {}
 					
-				TroopLocations[attack_lists[team][troop].Location].append(troop)
-				
-				TroopStatus[troop] = "Active"
+				TroopLocations[attack_lists[team][troop].Location][troop] = "Active"
 	
 	#M1 moves
-	for location in TroopLocations:
-		for troop in TroopLocations[location]:
-			if TroopLocations[location][troop].M1 != "X":
-				if TroopLocations[location][troop].FireMove == 1:
+	for location in TroopLocations.keys():
+		for troop in TroopLocations[location].keys():
+			
+			if TroopInfo[troop].M1 == location:
+				break
+			
+			if TroopInfo[troop].M1 != "X":
+				
+				if TroopInfo[troop].FireMove == 1:
 					pass
+					
 				else:
-					TroopLocations[[location][troop].M1]]
-					TroopLocations[location].erase(troop)
-					Tr
+					
+					if !TroopLocations.has(TroopInfo[troop].M1):
+						TroopLocations[TroopInfo[troop].M1] = {}
+						
+					TroopLocations[location].remove(troop)
+					TroopLocations[TroopInfo[troop].M1][troop] = "Active"
+					
+	#M1 attacks
+	LocationBattles = {}
+	for location in TroopLocations.keys():
+		for troop in TroopLocations[location].keys():
+			if Lo
+		
