@@ -67,6 +67,35 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 	#M1 attacks
 	LocationBattles = {}
 	for location in TroopLocations.keys():
-		for troop in TroopLocations[location].keys():
-			if Lo
-		
+		LocationBattles[location] = {}
+		#if LocationInfo.Tiles[location] == "None":
+			#pass
+		#else:
+			
+		for troop in TroopLocations[location]:
+			if !LocationBattles[location].has(TroopInfo[troop].Team):
+				LocationBattles[location][TroopInfo[troop].Team] = {}
+				
+		if LocationBattles[location].keys().size() == 0:
+			print("where is everyone")
+		elif LocationBattles[location].keys.size() == 1:
+			if TroopLocations[location] == "None":
+				default_win(location, LocationBattles[location].keys()[0])
+			elif [TroopLocations[location]] == LocationBattles[location].keys():
+				pass
+			else:
+				pass
+		else:
+			pass
+			
+
+func check_battles() -> void:
+	pass
+
+func default_win(location: String, winning_team: String) -> void:
+	for troop in TroopLocations[location]:
+		TroopLocations[location][troop] = "Inactive"
+	LocationInfo.Tiles[location] = winning_team
+	
+func battle_win() -> void:
+	pass

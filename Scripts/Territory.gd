@@ -33,6 +33,7 @@ func _ready() -> void:
 	for id in GameManager.Players:
 		if GameManager.Players[id].Territory == [tile_id]:
 			color_rect.modulate = GameManager.Players[id].Color
+			LocationInfo.Tiles[tile_id] = GameManager.Players[id].Name
 
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
