@@ -4,6 +4,8 @@ var TroopLocations: Dictionary = {}
 var LocationBattles: Dictionary = {}
 var TroopInfo: Dictionary = {}
 
+var TeamTP: int = 0
+
 func _ready() -> void:
 	pass # Replace with function body.
 	
@@ -65,37 +67,68 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					TroopLocations[TroopInfo[troop].M1][troop] = "Active"
 					
 	#M1 attacks
-	LocationBattles = {}
-	for location in TroopLocations.keys():
-		LocationBattles[location] = {}
-		#if LocationInfo.Tiles[location] == "None":
-			#pass
-		#else:
-			
-		for troop in TroopLocations[location]:
-			if !LocationBattles[location].has(TroopInfo[troop].Team):
-				LocationBattles[location][TroopInfo[troop].Team] = {}
-				
-		if LocationBattles[location].keys().size() == 0:
-			print("where is everyone")
-		elif LocationBattles[location].keys.size() == 1:
-			if TroopLocations[location] == "None":
-				default_win(location, LocationBattles[location].keys()[0])
-			elif [TroopLocations[location]] == LocationBattles[location].keys():
-				pass
-			else:
-				pass
-		else:
-			pass
+	check_battles()
 			
 
 func check_battles() -> void:
-	pass
+	LocationBattles = {}
+	for location in TroopLocations.keys():
+		
+		LocationBattles[location] = []
+			
+		for troop in TroopLocations[location]:
+			if !LocationBattles[location].has(TroopInfo[troop].Team):
+				LocationBattles[location].append(TroopInfo[troop].Team)
+				
+				
+		if LocationBattles[location].size() == 0:
+			print("where is everyone")
+			
+		elif LocationBattles[location].size() == 1:
+			
+			if TroopLocations[location] == "None":
+				default_win(location, LocationBattles[location][0])
+				
+			elif TroopLocations[location] == LocationBattles[location].keys()[0]:
+				pass
+				#nothing happens
+				
+			else:
+				determine_battle_winner(
+					{TroopLocations[location][0]: calculate_team_tp(location, TroopLocations[location][0]),
+				LocationBattles[location].keys()[0]: 1}
+				)
+				
+		else:
+			pass
 
 func default_win(location: String, winning_team: String) -> void:
 	for troop in TroopLocations[location]:
 		TroopLocations[location][troop] = "Inactive"
 	LocationInfo.Tiles[location] = winning_team
+	
+func calculate_team_tp(location: String, team: String) -> int:
+	TeamTP = 0
+	for troop in TroopLocations[location]:
+		if TroopInfo[troop].Team == team:
+			TeamTP += TroopInfo[troop].TP
+			
+	return TeamTP
+	
+func determine_battle_winner(tp_values: Dictionary) -> void:
+	TeamTP = 0
+	for team in tp_values:
+		if tp_values[team] > TeamTP:
+			TeamTP = tp_values[team]
+	
+	for team in tp_values:
+		if team_values[team] == 
+	
+func calculate_troop_losses() -> void:
+	pass
+	
+func battle_loss() -> void:
+	pass
 	
 func battle_win() -> void:
 	pass
