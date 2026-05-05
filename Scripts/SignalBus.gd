@@ -22,3 +22,7 @@ signal update_ready_players_board
 
 signal get_attack_lists
 signal check_if_attacks_ready
+
+signal troop_defeated
+signal move_troop_tabs
+signal update_troop_info

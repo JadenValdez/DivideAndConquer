@@ -34,6 +34,11 @@ func _ready() -> void:
 	SignalBus.undo_move.connect(_undo_move)
 	SignalBus.get_attack_lists.connect(_get_attack_lists)
 	
+	SignalBus.troop_defeated.connect(_troop_defeated)
+	SignalBus.move_troop_tabs.connect(_move_troop_tabs)
+	SignalBus.update_troop_info.connect(_update_troop_info)
+	
+	
 	color_rect.modulate = tab_color
 	
 	troop_id_label.text = str(troop_id)
@@ -231,16 +236,6 @@ func _undo_move() -> void:
 					SignalBus.select_troop.emit(troop_id, troop_type, troop_location)
 	
 func _get_attack_lists() -> void:
-	#if troop_type == "TroopLeader":
-		#PlayerInformation.AttackList[troop_id] = {
-			#"Location": location, 
-			#"M1", m_1_location.text, 
-			#m_2_location.text, m_3_location.text, m_4_location.text
-			#}
-	#elif troop_type == "Mortar":
-		#PlayerInformation.AttackList[troop_id] = [location, m_1_location.text, m_2_location.text, m_3_location.text, m_4_location.text, fire_move]
-	#else:
-		#PlayerInformation.AttackList[troop_id] = [m_1_location.text, m_2_location.text, m_3_location.text]
 	PlayerInformation.AttackList[troop_id] = {
 		"Team": GameManager.Players[multiplayer.get_unique_id()].Name,
 		"Type": troop_type,
@@ -274,3 +269,21 @@ func _get_attack_lists() -> void:
 	
 	fire_move = 0
 	SignalBus.check_if_attacks_ready.emit()
+
+func _troop_defeated(troop: int) -> void:
+	if troop == troop_id:
+		SignalBus.move_troop_tabs.emit(tab_number)
+		queue_free()
+		
+func _move_troop_tabs(defeated_tab_number: int) -> void:
+	if defeated_tab_number < tab_number:
+		tab_number -= 1
+		self.position = Vector2(0, tab_number * 50)
+		
+func _update_troop_info(troop: int, tp: int, location_troop: String) -> void:
+	if troop == troop_id:
+		troop_tp = tp
+		troop_type_tp.text = troop_type + "(" + str(troop_tp) + ")"
+		
+		location = location_troop
+		troop_location.text = location

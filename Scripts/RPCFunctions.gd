@@ -39,3 +39,12 @@ func SendAttackList(team: String, attack_list: Dictionary) -> void:
 		print(GameManager.AttackLists)
 		ConquestSimulation.SimulateConquest(GameManager.AttackLists.duplicate(true))
 		GameManager.AttackLists = {}
+
+@rpc("call_local", "any_peer")
+func UpdateTroopInfo(troop_info: Dictionary) -> void:
+	for troop in troop_info:
+		if troop_info[troop].Team == GameManager.Players[multiplayer.get_unique_id()].Name:
+			if troop_info[troop].Status == "Dead":
+				SignalBus.troop_defeated.emit(troop)
+			else:
+				SignalBus.update_troop_info.emit(troop, troop_info[troop].TP, troop_info[troop].Location)
