@@ -71,6 +71,7 @@ func _set_new_player(id: int):
 				"AP": 1,
 				"SP": 0
 			},
+			"UnitID": 6
 		}
 
 	if multiplayer.is_server():

@@ -26,3 +26,5 @@ signal check_if_attacks_ready
 signal troop_defeated
 signal move_troop_tabs
 signal update_troop_info
+
+signal craft_troop
