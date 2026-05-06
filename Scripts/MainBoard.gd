@@ -6,6 +6,9 @@ var tab_number: int = 0
 
 @onready var undo: Button = $Undo
 
+@onready var craft: Button = $Craft
+@onready var crafting_window: Node2D = $CraftingWindow
+
 const TROOP_TAB = preload("res://Scenes/TroopTab.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,7 +42,6 @@ func _select_troop(id: int, _type: String, _location: String) -> void:
 	else:
 		undo.show()
 
-
 func _on_undo_pressed() -> void:
 	SignalBus.undo_move.emit()
 
@@ -55,3 +57,12 @@ func _on_ready_pressed() -> void:
 func _update_ready_players_board() -> void:
 	ready_players_label.text = "Ready: 
 		" + str(GameManager.ReadyPlayers) + "/" + str(GameManager.TotalPlayers)
+
+
+func _on_craft_pressed() -> void:
+	if craft.text == "Craft":
+		craft.text = "Close"
+		crafting_window.show()
+	else:
+		craft.text = "Craft"
+		crafting_window.hide()
