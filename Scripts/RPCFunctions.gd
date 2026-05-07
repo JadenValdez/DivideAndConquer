@@ -48,3 +48,4 @@ func UpdateTroopInfo(troop_info: Dictionary) -> void:
 				SignalBus.troop_defeated.emit(troop)
 			else:
 				SignalBus.update_troop_info.emit(troop, troop_info[troop].TP, troop_info[troop].Location)
+	SignalBus.get_round_resources.emit()
