@@ -386,6 +386,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CraftingWindow" type="Node2D" parent="."]
+visible = false
 script = ExtResource("6_mgc0v")
 
 [node name="Background" type="ColorRect" parent="CraftingWindow"]

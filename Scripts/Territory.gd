@@ -25,6 +25,7 @@ func _ready() -> void:
 	
 	SignalBus.mortar_firing_mode.connect(_mortar_firing_mode)
 	SignalBus.mortar_movement_mode.connect(_mortar_movement_mode)
+	SignalBus.get_round_resources.connect(_get_round_resources)
 	
 	
 	neighbors = TileNeighbors.NEIGHBORS[tile_id]
@@ -80,3 +81,7 @@ func _reset_tile_indicators() -> void:
 	move.hide()
 	pause.hide()
 	fire.hide()
+
+func _get_round_resources() -> void:
+	if LocationInfo.Tiles[tile_id] == GameManager.Players[multiplayer.get_unique_id()].Name:
+		SignalBus.add_resources.emit(tile_type)
