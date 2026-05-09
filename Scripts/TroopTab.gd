@@ -79,18 +79,18 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					move_1.show()
 					m_1_location.text = "X"
 					move_amount = 2
-					SignalBus.select_troop.emit(troop_id, troop_type, location)
+					SignalBus.select_troop.emit(troop_id, troop_type, location_space)
 				2:
 					move_2.show()
 					m_2_location.text = "X"
 					move_amount = 3
-					SignalBus.select_troop.emit(troop_id, troop_type, location)
+					SignalBus.select_troop.emit(troop_id, troop_type, location_space)
 				3:
 					move_3.show()
 					m_3_location.text = "X"
 					if troop_type == "TroopLeader":
 						move_amount = 4
-						SignalBus.select_troop.emit(troop_id, troop_type, location)
+						SignalBus.select_troop.emit(troop_id, troop_type, location_space)
 					elif troop_type == "Mortar":
 						if fire_move == 0:
 							move_amount = 4
@@ -98,11 +98,11 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 						else:
 							SignalBus.select_troop.emit(0, troop_type, location_space)
 					else: 
-						SignalBus.select_troop.emit(0, troop_type, location)
+						SignalBus.select_troop.emit(0, troop_type, location_space)
 				4:
 					move_4.show()
 					m_4_location.text = "X"
-					SignalBus.select_troop.emit(0, troop_type, location)
+					SignalBus.select_troop.emit(0, troop_type, location_space)
 					
 		elif action == "Move":
 			match move_amount:
@@ -134,35 +134,35 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					move_4.show()
 					m_4_location.text = location_space
 					move_amount = 5
-					SignalBus.select_troop.emit(0, troop_type, location_space)
+					SignalBus.select_troop.emit(0, troop_type, location)
 			
 		elif action == "Fire":
 			match move_amount:
 				1:
 					move_1.show()
 					move_1.modulate = Color(1, 0, 0, 1)
-					m_1_location.text = location_space
+					m_1_location.text = location
 					fire_move = 1
 					move_amount = 2
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				2:
 					move_2.show()
 					move_2.modulate = Color(1, 0, 0, 1)
-					m_2_location.text = location_space
+					m_2_location.text = location
 					fire_move = 2
 					move_amount = 3
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				3:
 					move_3.show()
 					move_3.modulate = Color(1, 0, 0, 1)
-					m_3_location.text = location_space
+					m_3_location.text = location
 					fire_move = 3
 					move_amount = 4
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				4:
 					move_4.show()
 					move_4.modulate = Color(1, 0, 0, 1)
-					m_4_location.text = location_space
+					m_4_location.text = location
 					fire_move = 4
 					move_amount = 5
 					SignalBus.select_troop.emit(0, troop_type, location_space)
@@ -174,6 +174,7 @@ func _undo_move() -> void:
 				pass
 			1:
 				if recently_crafted:
+					SignalBus.CurrentAction = "Place"
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
 					pass
@@ -187,7 +188,7 @@ func _undo_move() -> void:
 				if recently_crafted:
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
-					SignalBus.select_troop.emit(troop_id, troop_type, troop_location)
+					SignalBus.select_troop.emit(troop_id, troop_type, location)
 			3:
 				move_2.hide()
 				move_2.modulate = Color(0, 0, 0, 1)
@@ -200,7 +201,7 @@ func _undo_move() -> void:
 				elif recently_crafted:
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
-					SignalBus.select_troop.emit(troop_id, troop_type, troop_location)
+					SignalBus.select_troop.emit(troop_id, troop_type, location)
 					
 			4:
 				move_3.hide()
@@ -216,7 +217,7 @@ func _undo_move() -> void:
 				elif recently_crafted:
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
-					SignalBus.select_troop.emit(troop_id, troop_type, troop_location)
+					SignalBus.select_troop.emit(troop_id, troop_type, location)
 			5: 
 				move_4.hide()
 				move_4.modulate = Color(0, 0, 0, 1)
@@ -233,7 +234,7 @@ func _undo_move() -> void:
 				elif recently_crafted:
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
-					SignalBus.select_troop.emit(troop_id, troop_type, troop_location)
+					SignalBus.select_troop.emit(troop_id, troop_type, location)
 	
 func _get_attack_lists() -> void:
 	PlayerInformation.AttackList[troop_id] = {

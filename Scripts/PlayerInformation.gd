@@ -14,5 +14,5 @@ func CheckIfAttackReady() -> void:
 	for troop in GameManager.Players[multiplayer.get_unique_id()].Troops:
 		if !AttackList.has(troop):
 			return
-	RPCFunctions.SendAttackList(GameManager.Players[multiplayer.get_unique_id()].Name, AttackList.duplicate(true))
+	RPCFunctions.SendAttackList.rpc(GameManager.Players[multiplayer.get_unique_id()].Name, AttackList.duplicate(true))
 	AttackList = {}

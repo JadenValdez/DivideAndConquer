@@ -175,7 +175,8 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					TroopLocations[TroopInfo[troop].M4][troop] = "Active"
 	#M4 attacks
 	check_battles()
-	RPCFunctions.UpdateTroopInfo(TroopInfo.duplicate(true))
+	
+	RPCFunctions.UpdateTroopInfo.rpc(TroopInfo.duplicate(true))
 
 func check_battles() -> void:
 	LocationBattles = {}

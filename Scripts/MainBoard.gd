@@ -52,11 +52,11 @@ func _on_undo_pressed() -> void:
 
 func _on_ready_pressed() -> void:
 	if ready_button.text == "Ready Up":
-		RPCFunctions.ReadyPlayer()
+		RPCFunctions.ReadyPlayer.rpc()
 		ready_button.text = "Cancel"
 	else:
 		ready_button.text = "Ready Up"
-		RPCFunctions.NotReadyPlayer()
+		RPCFunctions.NotReadyPlayer.rpc()
 
 func _update_ready_players_board() -> void:
 	ready_players_label.text = "Ready: 
