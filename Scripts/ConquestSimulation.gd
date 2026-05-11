@@ -63,6 +63,11 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 		for troop in TroopLocations[location].keys():
 			
 			if TroopInfo[troop].M1 == location:
+				TroopLocations[TroopInfo[troop].M1][troop] = "Idle"
+				break
+			
+			if TroopInfo[troop].M1 == "X":
+				TroopLocations[TroopInfo[troop].M1][troop] = "Idle"
 				break
 			
 			if TroopInfo[troop].M1 != "X":
@@ -80,7 +85,7 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					if !TroopLocations.has(TroopInfo[troop].M1):
 						TroopLocations[TroopInfo[troop].M1] = {}
 						
-					TroopLocations[location].remove(troop)
+					TroopLocations[location].erase(troop)
 					TroopLocations[TroopInfo[troop].M1][troop] = "Active"
 					TroopInfo[troop].Location = TroopInfo[troop].M1
 	#M1 attacks
@@ -94,8 +99,13 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 				break
 				
 			if TroopInfo[troop].M2 == location:
+				TroopLocations[TroopInfo[troop].M2][troop] = "Idle"
 				break
 			
+			if TroopInfo[troop].M2 == "X":
+				TroopLocations[TroopInfo[troop].M2][troop] = "Idle"
+				break
+				
 			if TroopInfo[troop].M2 != "X":
 				
 				if TroopInfo[troop].FireMove == 2:
@@ -111,7 +121,7 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					if !TroopLocations.has(TroopInfo[troop].M2):
 						TroopLocations[TroopInfo[troop].M2] = {}
 						
-					TroopLocations[location].remove(troop)
+					TroopLocations[location].erase(troop)
 					TroopLocations[TroopInfo[troop].M2][troop] = "Active"
 	#M2 attacks
 	check_battles()
@@ -124,8 +134,13 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 				break
 				
 			if TroopInfo[troop].M3 == location:
+				TroopLocations[TroopInfo[troop].M3][troop] = "Idle"
 				break
 			
+			if TroopInfo[troop].M3 == "X":
+				TroopLocations[TroopInfo[troop].M3][troop] = "Idle"
+				break
+				
 			if TroopInfo[troop].M3 != "X":
 				
 				if TroopInfo[troop].FireMove == 3:
@@ -141,7 +156,7 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					if !TroopLocations.has(TroopInfo[troop].M3):
 						TroopLocations[TroopInfo[troop].M3] = {}
 						
-					TroopLocations[location].remove(troop)
+					TroopLocations[location].erase(troop)
 					TroopLocations[TroopInfo[troop].M3][troop] = "Active"
 	#M3 attacks
 	check_battles()
@@ -154,8 +169,13 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 				break
 				
 			if TroopInfo[troop].M4 == location:
+				TroopLocations[TroopInfo[troop].M4][troop] = "Idle"
 				break
 			
+			if TroopInfo[troop].M4 == "X":
+				TroopLocations[TroopInfo[troop].M4][troop] = "Idle"
+				break
+				
 			if TroopInfo[troop].M4 != "X":
 				
 				if TroopInfo[troop].FireMove == 4:
@@ -171,7 +191,7 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					if !TroopLocations.has(TroopInfo[troop].M4):
 						TroopLocations[TroopInfo[troop].M4] = {}
 						
-					TroopLocations[location].remove(troop)
+					TroopLocations[location].erase(troop)
 					TroopLocations[TroopInfo[troop].M4][troop] = "Active"
 	#M4 attacks
 	check_battles()
@@ -197,7 +217,7 @@ func check_battles() -> void:
 			if LocationInfo.Tiles[CurrentLocation] == "None":
 				default_win(LocationBattles[CurrentLocation][0])
 				
-			elif TroopLocations[CurrentLocation] == LocationBattles[CurrentLocation].keys()[0]:
+			elif LocationInfo.Tiles[CurrentLocation] == LocationBattles[CurrentLocation][0]:
 				pass
 				#nothing happens
 				
