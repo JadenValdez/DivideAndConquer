@@ -25,6 +25,8 @@ func _ready() -> void:
 	
 	SignalBus.mortar_firing_mode.connect(_mortar_firing_mode)
 	SignalBus.mortar_movement_mode.connect(_mortar_movement_mode)
+	
+	SignalBus.update_territory_colors.connect(_update_territory_colors)
 	SignalBus.get_round_resources.connect(_get_round_resources)
 	
 	
@@ -81,6 +83,12 @@ func _reset_tile_indicators() -> void:
 	move.hide()
 	pause.hide()
 	fire.hide()
+
+func _update_territory_colors() -> void:
+	if LocationInfo.Tiles[tile_id] == "None":
+		color_rect.modulate = Color(1, 1, 1, 1)
+	else:
+		color_rect.modulate = Colors.COLORS[LocationInfo.Tiles[tile_id]].Color
 
 func _get_round_resources() -> void:
 	if LocationInfo.Tiles[tile_id] == GameManager.Players[multiplayer.get_unique_id()].Name:

@@ -23,6 +23,7 @@ signal update_ready_players_board
 signal get_attack_lists
 signal check_if_attacks_ready
 
+signal update_territory_colors
 signal get_round_resources
 signal add_resources
 

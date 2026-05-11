@@ -231,7 +231,7 @@ func check_battles() -> void:
 				if WinningTeam == "None":
 					LocationInfo.Tiles[CurrentLocation] = "None"
 				elif WinningTeam != LocationInfo.Tiles[CurrentLocation]:
-					TroopLocations[CurrentLocation] = WinningTeam
+					LocationInfo.Tiles[CurrentLocation] = WinningTeam
 					for troop in TroopLocations[CurrentLocation]:
 						if TroopLocations[CurrentLocation][troop] != "Dead":
 							TroopLocations[CurrentLocation][troop] = "Inactive"
@@ -245,7 +245,7 @@ func check_battles() -> void:
 			if WinningTeam == "None":
 				LocationInfo.Tiles[CurrentLocation] = "None"
 			elif WinningTeam != LocationInfo.Tiles[CurrentLocation]:
-				TroopLocations[CurrentLocation] = WinningTeam
+				LocationInfo.Tiles[CurrentLocation] = WinningTeam
 				for troop in TroopLocations[CurrentLocation]:
 					TroopLocations[CurrentLocation][troop] = "Inactive"
 		

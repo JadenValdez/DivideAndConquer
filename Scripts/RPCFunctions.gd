@@ -48,4 +48,11 @@ func UpdateTroopInfo(troop_info: Dictionary) -> void:
 				SignalBus.troop_defeated.emit(troop)
 			else:
 				SignalBus.update_troop_info.emit(troop, troop_info[troop].TP, troop_info[troop].Location)
+	if multiplayer.is_server():
+		UpdateTerritoryColors.rpc(LocationInfo.Tiles.duplicate(true))
 	SignalBus.get_round_resources.emit()
+
+@rpc("call_local", "any_peer")
+func UpdateTerritoryColors(location_info: Dictionary) -> void:
+	LocationInfo.Tiles = location_info
+	SignalBus.update_territory_colors.emit()
