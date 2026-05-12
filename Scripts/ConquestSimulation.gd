@@ -63,11 +63,13 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 		for troop in TroopLocations[location].keys():
 			
 			if TroopInfo[troop].M1 == location:
-				TroopLocations[TroopInfo[troop].M1][troop] = "Idle"
+				TroopLocations[location][troop] = "Idle"
+				TroopInfo[troop].Location = location
 				break
 			
 			if TroopInfo[troop].M1 == "X":
-				TroopLocations[TroopInfo[troop].M1][troop] = "Idle"
+				TroopLocations[location][troop] = "Idle"
+				TroopInfo[troop].Location = location
 				break
 			
 			if TroopInfo[troop].M1 != "X":
@@ -99,11 +101,13 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 				break
 				
 			if TroopInfo[troop].M2 == location:
-				TroopLocations[TroopInfo[troop].M2][troop] = "Idle"
+				TroopLocations[location][troop] = "Idle"
+				TroopInfo[troop].Location = location
 				break
 			
 			if TroopInfo[troop].M2 == "X":
-				TroopLocations[TroopInfo[troop].M2][troop] = "Idle"
+				TroopLocations[location][troop] = "Idle"
+				TroopInfo[troop].Location = location
 				break
 				
 			if TroopInfo[troop].M2 != "X":
@@ -123,6 +127,7 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 						
 					TroopLocations[location].erase(troop)
 					TroopLocations[TroopInfo[troop].M2][troop] = "Active"
+					TroopInfo[troop].Location = TroopInfo[troop].M2
 	#M2 attacks
 	check_battles()
 	
@@ -134,11 +139,13 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 				break
 				
 			if TroopInfo[troop].M3 == location:
-				TroopLocations[TroopInfo[troop].M3][troop] = "Idle"
+				TroopLocations[location][troop] = "Idle"
+				TroopInfo[troop].Location = location
 				break
 			
 			if TroopInfo[troop].M3 == "X":
-				TroopLocations[TroopInfo[troop].M3][troop] = "Idle"
+				TroopLocations[location][troop] = "Idle"
+				TroopInfo[troop].Location = location
 				break
 				
 			if TroopInfo[troop].M3 != "X":
@@ -158,6 +165,7 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 						
 					TroopLocations[location].erase(troop)
 					TroopLocations[TroopInfo[troop].M3][troop] = "Active"
+					TroopInfo[troop].Location = TroopInfo[troop].M3
 	#M3 attacks
 	check_battles()
 	
@@ -169,11 +177,13 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 				break
 				
 			if TroopInfo[troop].M4 == location:
-				TroopLocations[TroopInfo[troop].M4][troop] = "Idle"
+				TroopLocations[location][troop] = "Idle"
+				TroopInfo[troop].Location = location
 				break
 			
 			if TroopInfo[troop].M4 == "X":
-				TroopLocations[TroopInfo[troop].M4][troop] = "Idle"
+				TroopLocations[location][troop] = "Idle"
+				TroopInfo[troop].Location = location
 				break
 				
 			if TroopInfo[troop].M4 != "X":
@@ -193,6 +203,7 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 						
 					TroopLocations[location].erase(troop)
 					TroopLocations[TroopInfo[troop].M4][troop] = "Active"
+					TroopInfo[troop].Location = TroopInfo[troop].M4
 	#M4 attacks
 	check_battles()
 	
@@ -235,6 +246,8 @@ func check_battles() -> void:
 					for troop in TroopLocations[CurrentLocation]:
 						if TroopLocations[CurrentLocation][troop] != "Dead":
 							TroopLocations[CurrentLocation][troop] = "Inactive"
+				else:
+					LocationInfo.Tiles[CurrentLocation] = WinningTeam
 					
 				
 		else:
@@ -292,7 +305,6 @@ func determine_battle_winner(tp_values: Dictionary) -> String:
 	if Winners.size() >= 2:
 		for team in Winners:
 			battle_loss(team)
-		LocationInfo.Tiles[CurrentLocation] = "None"
 		return("None")
 	elif Winners.size() == 1:
 		calculate_troop_losses(Winners[0], TeamTP2nd)
