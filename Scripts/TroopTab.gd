@@ -23,7 +23,7 @@ var tab_number: int
 var tab_color: Color
 
 var move_amount: int
-var fire_move: int = 0
+var fire_move: String = "M0"
 
 var recently_crafted: bool = true
 
@@ -92,7 +92,7 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 						move_amount = 4
 						SignalBus.select_troop.emit(troop_id, troop_type, location_space)
 					elif troop_type == "Mortar":
-						if fire_move == 0:
+						if fire_move == "M0":
 							move_amount = 4
 							SignalBus.select_troop.emit(troop_id, "MortarFire", location_space)
 						else:
@@ -123,7 +123,7 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 						move_amount = 4
 						SignalBus.select_troop.emit(troop_id, troop_type, location_space)
 					elif troop_type == "Mortar":
-						if fire_move == 0:
+						if fire_move == "M0":
 							move_amount = 4
 							SignalBus.select_troop.emit(troop_id, "MortarFire", location_space)
 						else:
@@ -142,28 +142,28 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					move_1.show()
 					move_1.modulate = Color(1, 0, 0, 1)
 					m_1_location.text = location
-					fire_move = 1
+					fire_move = "M1"
 					move_amount = 2
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				2:
 					move_2.show()
 					move_2.modulate = Color(1, 0, 0, 1)
 					m_2_location.text = location
-					fire_move = 2
+					fire_move = "M2"
 					move_amount = 3
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				3:
 					move_3.show()
 					move_3.modulate = Color(1, 0, 0, 1)
 					m_3_location.text = location
-					fire_move = 3
+					fire_move = "M3"
 					move_amount = 4
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 				4:
 					move_4.show()
 					move_4.modulate = Color(1, 0, 0, 1)
 					m_4_location.text = location
-					fire_move = 4
+					fire_move = "M4"
 					move_amount = 5
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 
@@ -182,8 +182,8 @@ func _undo_move() -> void:
 				move_1.hide()
 				move_1.modulate = Color(0, 0, 0, 1)
 				m_1_location.text = "X"
-				if fire_move == 1:
-					fire_move = 0
+				if fire_move == "M1":
+					fire_move = "M0"
 				move_amount = 0
 				if recently_crafted:
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
@@ -193,8 +193,8 @@ func _undo_move() -> void:
 				move_2.hide()
 				move_2.modulate = Color(0, 0, 0, 1)
 				m_2_location.text = "X"
-				if fire_move == 2:
-					fire_move = 0
+				if fire_move == "M2":
+					fire_move = "M0"
 				move_amount = 1
 				if m_1_location.text != "X":
 					SignalBus.select_troop.emit(troop_id, troop_type, m_1_location.text)
@@ -207,8 +207,8 @@ func _undo_move() -> void:
 				move_3.hide()
 				move_3.modulate = Color(0, 0, 0, 1)
 				m_3_location.text = "X"
-				if fire_move == 3:
-					fire_move = 0
+				if fire_move == "M3":
+					fire_move = "M0"
 				move_amount = 2
 				if m_2_location.text != "X":
 					SignalBus.select_troop.emit(troop_id, troop_type, m_2_location.text)
@@ -222,8 +222,8 @@ func _undo_move() -> void:
 				move_4.hide()
 				move_4.modulate = Color(0, 0, 0, 1)
 				m_4_location.text = "X"
-				if fire_move == 4:
-					fire_move = 0
+				if fire_move == "M4":
+					fire_move = "M0"
 				move_amount = 3
 				if m_3_location.text != "X":
 					SignalBus.select_troop.emit(troop_id, troop_type, m_3_location.text)
@@ -268,7 +268,7 @@ func _get_attack_lists() -> void:
 		move_amount = 1
 		recently_crafted = false
 	
-	fire_move = 0
+	fire_move = "M0"
 	SignalBus.check_if_attacks_ready.emit()
 
 func _troop_defeated(troop: int) -> void:

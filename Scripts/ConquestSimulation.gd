@@ -58,155 +58,49 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					
 				TroopLocations[attack_lists[team][troop].Location][troop] = "Active"
 	
-	#M1 moves
-	for location in TroopLocations.keys():
-		for troop in TroopLocations[location].keys():
-			
-			if TroopInfo[troop].M1 == location:
-				TroopLocations[location][troop] = "Idle"
-				TroopInfo[troop].Location = location
-				break
-			
-			if TroopInfo[troop].M1 == "X":
-				TroopLocations[location][troop] = "Idle"
-				TroopInfo[troop].Location = location
-				break
-			
-			if TroopInfo[troop].M1 != "X":
-				
-				if TroopInfo[troop].FireMove == 1:
-					TroopLocations[TroopInfo[troop].M1][troop + 900] = "Active"
-					TroopInfo[troop + 900] = {
-						"Team": TroopInfo[troop].Team,
-						"Type": "MortarShot",
-						"Status": "Alive"
-					}
-					
-				else:
-					
-					if !TroopLocations.has(TroopInfo[troop].M1):
-						TroopLocations[TroopInfo[troop].M1] = {}
-						
-					TroopLocations[location].erase(troop)
-					TroopLocations[TroopInfo[troop].M1][troop] = "Active"
-					TroopInfo[troop].Location = TroopInfo[troop].M1
-	#M1 attacks
-	check_battles()
+	print("M0")
+	print(TroopLocations)
 	
-	#M2 moves
-	for location in TroopLocations.keys():
-		for troop in TroopLocations[location].keys():
-			
-			if TroopLocations[location][troop] == "Inactive":
-				break
-				
-			if TroopInfo[troop].M2 == location:
-				TroopLocations[location][troop] = "Idle"
-				TroopInfo[troop].Location = location
-				break
-			
-			if TroopInfo[troop].M2 == "X":
-				TroopLocations[location][troop] = "Idle"
-				TroopInfo[troop].Location = location
-				break
-				
-			if TroopInfo[troop].M2 != "X":
-				
-				if TroopInfo[troop].FireMove == 2:
-					TroopLocations[TroopInfo[troop].M1][troop + 900] = "Active"
-					TroopInfo[troop + 900] = {
-						"Team": TroopInfo[troop].Team,
-						"Type": "MortarShot",
-						"Status": "Alive"
-					}
+	for move in ["M1", "M2", "M3", "M4"]:
+		
+		for location in TroopLocations.keys():
+			for troop in TroopLocations[location].keys():
+				print(troop)
+				if TroopLocations[location][troop] == "Inactive":
+					print("inactive")
 					
-				else:
+				elif TroopInfo[troop][move] == location:
+					TroopLocations[location][troop] = "Idle"
+					TroopInfo[troop].Location = location
+					print("same location")
+				
+				elif TroopInfo[troop][move] == "X":
+					TroopLocations[location][troop] = "Idle"
+					TroopInfo[troop].Location = location
+					print("x location")
 					
-					if !TroopLocations.has(TroopInfo[troop].M2):
-						TroopLocations[TroopInfo[troop].M2] = {}
+				elif TroopInfo[troop][move] != "X":
+					
+					if TroopInfo[troop].FireMove == move:
+						TroopLocations[TroopInfo[troop][move]][troop + 900] = "Active"
+						TroopInfo[troop + 900] = {
+							"Team": TroopInfo[troop].Team,
+							"Type": "MortarShot",
+							"Status": "Alive"
+						}
 						
-					TroopLocations[location].erase(troop)
-					TroopLocations[TroopInfo[troop].M2][troop] = "Active"
-					TroopInfo[troop].Location = TroopInfo[troop].M2
-	#M2 attacks
-	check_battles()
-	
-	#M3 moves
-	for location in TroopLocations.keys():
-		for troop in TroopLocations[location].keys():
-			
-			if TroopLocations[location][troop] == "Inactive":
-				break
-				
-			if TroopInfo[troop].M3 == location:
-				TroopLocations[location][troop] = "Idle"
-				TroopInfo[troop].Location = location
-				break
-			
-			if TroopInfo[troop].M3 == "X":
-				TroopLocations[location][troop] = "Idle"
-				TroopInfo[troop].Location = location
-				break
-				
-			if TroopInfo[troop].M3 != "X":
-				
-				if TroopInfo[troop].FireMove == 3:
-					TroopLocations[TroopInfo[troop].M1][troop + 900] = "Active"
-					TroopInfo[troop + 900] = {
-						"Team": TroopInfo[troop].Team,
-						"Type": "MortarShot",
-						"Status": "Alive"
-					}
-					
-				else:
-					
-					if !TroopLocations.has(TroopInfo[troop].M3):
-						TroopLocations[TroopInfo[troop].M3] = {}
+					else:
 						
-					TroopLocations[location].erase(troop)
-					TroopLocations[TroopInfo[troop].M3][troop] = "Active"
-					TroopInfo[troop].Location = TroopInfo[troop].M3
-	#M3 attacks
-	check_battles()
-	
-	#M4 moves
-	for location in TroopLocations.keys():
-		for troop in TroopLocations[location].keys():
-			
-			if TroopLocations[location][troop] == "Inactive":
-				break
-				
-			if TroopInfo[troop].M4 == location:
-				TroopLocations[location][troop] = "Idle"
-				TroopInfo[troop].Location = location
-				break
-			
-			if TroopInfo[troop].M4 == "X":
-				TroopLocations[location][troop] = "Idle"
-				TroopInfo[troop].Location = location
-				break
-				
-			if TroopInfo[troop].M4 != "X":
-				
-				if TroopInfo[troop].FireMove == 4:
-					TroopLocations[TroopInfo[troop].M4][troop + 900] = "Active"
-					TroopInfo[troop + 900] = {
-						"Team": TroopInfo[troop].Team,
-						"Type": "MortarShot",
-						"Status": "Alive"
-					}
-					
-				else:
-					
-					if !TroopLocations.has(TroopInfo[troop].M4):
-						TroopLocations[TroopInfo[troop].M4] = {}
-						
-					TroopLocations[location].erase(troop)
-					TroopLocations[TroopInfo[troop].M4][troop] = "Active"
-					TroopInfo[troop].Location = TroopInfo[troop].M4
-	#M4 attacks
-	check_battles()
-	
+						if !TroopLocations.has(TroopInfo[troop][move]):
+							TroopLocations[TroopInfo[troop][move]] = {}
+							
+						TroopLocations[location].erase(troop)
+						TroopLocations[TroopInfo[troop][move]][troop] = "Active"
+						TroopInfo[troop].Location = TroopInfo[troop][move]
+		print(move)
+		print(TroopLocations)
+		check_battles()
+		
 	RPCFunctions.UpdateTroopInfo.rpc(TroopInfo.duplicate(true))
 
 func check_battles() -> void:
