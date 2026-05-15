@@ -28,6 +28,7 @@ func ReadyPlayer() -> void:
 @rpc("call_local", "any_peer")
 func NotReadyPlayer() -> void:
 	GameManager.ReadyPlayers -= 1
+	SignalBus.update_ready_players_board.emit()
 
 @rpc("call_local", "any_peer")
 func SendAttackList(team: String, attack_list: Dictionary) -> void:
@@ -56,3 +57,7 @@ func UpdateTerritoryColors(location_info: Dictionary) -> void:
 	LocationInfo.Tiles = location_info
 	SignalBus.update_territory_colors.emit()
 	SignalBus.get_round_resources.emit()
+	SignalBus.start_next_round.emit()
+	
+	GameManager.ReadyPlayers = 0
+	SignalBus.update_ready_players_board.emit()

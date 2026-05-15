@@ -18,6 +18,8 @@ func _ready() -> void:
 	SignalBus.troop_defeated.connect(_troop_defeated)
 	SignalBus.craft_troop.connect(_craft_troop)
 	
+	SignalBus.start_next_round.connect(_start_next_round)
+	
 	GameManager.ReadyPlayers = 0
 	ready_players_label.text = "Ready: 
 		" + str(GameManager.ReadyPlayers) + "/" + str(GameManager.TotalPlayers)
@@ -52,9 +54,12 @@ func _on_undo_pressed() -> void:
 
 func _on_ready_pressed() -> void:
 	if ready_button.text == "Ready Up":
-		RPCFunctions.ReadyPlayer.rpc()
+		SignalBus.select_troop.emit(0, "Troop", "X")
 		ready_button.text = "Cancel"
+		RPCFunctions.ReadyPlayer.rpc()
+		
 	else:
+		SignalBus.select_troop.emit(0, "Troop", "X")
 		ready_button.text = "Ready Up"
 		RPCFunctions.NotReadyPlayer.rpc()
 
@@ -88,3 +93,7 @@ func _craft_troop(troop_type: String, tp: int) -> void:
 	add_child(instance)
 	
 	tab_number += 1
+
+func _start_next_round() -> void:
+	ready_button.text = "Ready Up"
+	
