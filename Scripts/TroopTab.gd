@@ -180,22 +180,22 @@ func _undo_move() -> void:
 					pass
 			2:
 				move_1.hide()
-				move_1.modulate = Color(0, 0, 0, 1)
+				move_1.modulate = Color(1, 1, 1, 1)
 				m_1_location.text = "X"
 				if fire_move == "M1":
 					fire_move = "M0"
-				move_amount = 0
+				move_amount = 1
 				if recently_crafted:
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
 					SignalBus.select_troop.emit(troop_id, troop_type, location)
 			3:
 				move_2.hide()
-				move_2.modulate = Color(0, 0, 0, 1)
+				move_2.modulate = Color(1, 1, 1, 1)
 				m_2_location.text = "X"
 				if fire_move == "M2":
 					fire_move = "M0"
-				move_amount = 1
+				move_amount = 2
 				if m_1_location.text != "X":
 					SignalBus.select_troop.emit(troop_id, troop_type, m_1_location.text)
 				elif recently_crafted:
@@ -205,11 +205,11 @@ func _undo_move() -> void:
 					
 			4:
 				move_3.hide()
-				move_3.modulate = Color(0, 0, 0, 1)
+				move_3.modulate = Color(1, 1, 1, 1)
 				m_3_location.text = "X"
 				if fire_move == "M3":
 					fire_move = "M0"
-				move_amount = 2
+				move_amount = 3
 				if m_2_location.text != "X":
 					SignalBus.select_troop.emit(troop_id, troop_type, m_2_location.text)
 				elif m_1_location.text != "X":
@@ -224,7 +224,7 @@ func _undo_move() -> void:
 				m_4_location.text = "X"
 				if fire_move == "M4":
 					fire_move = "M0"
-				move_amount = 3
+				move_amount = 4
 				if m_3_location.text != "X":
 					SignalBus.select_troop.emit(troop_id, troop_type, m_3_location.text)
 				elif m_2_location.text != "X":
