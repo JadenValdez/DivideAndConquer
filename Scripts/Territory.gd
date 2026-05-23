@@ -50,11 +50,14 @@ func _get_tile_position(id: String) -> void:
 		
 func _show_placement_spaces() -> void:
 	place.hide()
+	move.hide()
+	pause.hide()
 	for id in GameManager.Players[multiplayer.get_unique_id()].Territory:
 		if id == tile_id:
 			place.show()
 		
 func _show_movement_spaces() -> void:
+	place.hide()
 	move.hide()
 	pause.hide()
 	for id in MovementLogic.MoveableSpaces:
@@ -64,6 +67,7 @@ func _show_movement_spaces() -> void:
 		pause.show()
 
 func _mortar_firing_mode() -> void:
+	place.hide()
 	move.hide()
 	pause.hide()
 	for id in MovementLogic.MoveableSpaces:

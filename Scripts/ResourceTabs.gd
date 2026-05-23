@@ -8,9 +8,10 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SignalBus.add_resources.connect(_add_resources)
-	update_resource_tabs()
+	SignalBus.update_resource_tabs.connect(_update_resource_tabs)
+	_update_resource_tabs()
 
-func update_resource_tabs() -> void:
+func _update_resource_tabs() -> void:
 	food_label.text = "Food: " + str(GameManager.Players[multiplayer.get_unique_id()].Resources.Food)
 	gp_label.text = "GP: " + str(GameManager.Players[multiplayer.get_unique_id()].Resources.GP)
 	ap_label.text = "AP: " + str(GameManager.Players[multiplayer.get_unique_id()].Resources.AP)
@@ -19,4 +20,4 @@ func update_resource_tabs() -> void:
 func _add_resources(tile_type: String) -> void:
 	for resource_type in TileResources.RESOURCES[tile_type]:
 		GameManager.Players[multiplayer.get_unique_id()].Resources[resource_type] += TileResources.RESOURCES[tile_type][resource_type]
-	update_resource_tabs()
+	_update_resource_tabs()

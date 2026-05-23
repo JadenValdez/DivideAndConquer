@@ -72,6 +72,7 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 			location = location_space
 			troop_location.text = location
 			move_amount = 1
+			SignalBus.select_troop.emit(troop_id, troop_type, location_space)
 			
 		elif action == "Pause":
 			match move_amount:
@@ -171,13 +172,16 @@ func _undo_move() -> void:
 	if troop_id == PlayerInformation.SelectedTroop:
 		match move_amount:
 			0: 
-				pass
+				location = "None"
+				troop_location.text = "None"
+				SignalBus.select_troop.emit(0, troop_type, "None")
 			1:
 				if recently_crafted:
-					SignalBus.CurrentAction = "Place"
+					location = "None"
+					troop_location.text = "None"
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
-					pass
+					SignalBus.select_troop.emit(0, troop_type, "None")
 			2:
 				move_1.hide()
 				move_1.modulate = Color(1, 1, 1, 1)
