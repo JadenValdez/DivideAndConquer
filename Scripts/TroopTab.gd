@@ -175,11 +175,14 @@ func _undo_move() -> void:
 				location = "None"
 				troop_location.text = "None"
 				SignalBus.select_troop.emit(0, troop_type, "None")
+				
 			1:
 				if recently_crafted:
 					location = "None"
 					troop_location.text = "None"
+					move_amount = 0
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
+					
 				else:
 					SignalBus.select_troop.emit(0, troop_type, "None")
 			2:

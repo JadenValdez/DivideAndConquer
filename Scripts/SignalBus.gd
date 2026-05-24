@@ -32,6 +32,7 @@ signal move_troop_tabs
 signal update_troop_info
 
 signal craft_troop
+signal craft_item
 signal update_resource_tabs
 
 signal start_next_round

@@ -450,37 +450,47 @@ text = "Wall | TP: 14 | Cost: i forgor"
 [node name="ItemsWindow" type="Node2D" parent="CraftingWindow"]
 visible = false
 
-[node name="CraftTroop" type="Button" parent="CraftingWindow/ItemsWindow"]
+[node name="CraftMedkit" type="Button" parent="CraftingWindow/ItemsWindow"]
 offset_left = 456.0
 offset_top = 136.0
 offset_right = 1016.0
 offset_bottom = 224.0
 theme_override_font_sizes/font_size = 20
-text = "Troop | TP: 1 | Cost: 1 Food, 1 AP"
+text = "Medkit | Requires 2 SP | Cost: 8 Food, 3 GP, 2 AP"
 
-[node name="CraftTank" type="Button" parent="CraftingWindow/ItemsWindow"]
+[node name="CraftUpgradedTroop" type="Button" parent="CraftingWindow/ItemsWindow"]
 offset_left = 456.0
 offset_top = 232.0
 offset_right = 1016.0
 offset_bottom = 320.0
 theme_override_font_sizes/font_size = 20
-text = "Tank | TP: 4 | Cost: 1 Food, 2 GP"
+text = "Upgraded Troop | Requires 3 SP 
+Cost: 1 Food, 2GP"
 
-[node name="CraftMortar" type="Button" parent="CraftingWindow/ItemsWindow"]
+[node name="CraftJetPlane" type="Button" parent="CraftingWindow/ItemsWindow"]
 offset_left = 456.0
 offset_top = 328.0
 offset_right = 1016.0
 offset_bottom = 416.0
 theme_override_font_sizes/font_size = 20
-text = "Mortar | TP: 0 / 5(Shot) | Cost: 1 GP, 2 AP"
+text = "Jet Plane | Requires 5 SP | Cost: 2 Food, 10 GP, 6 AP "
 
-[node name="CraftWall" type="Button" parent="CraftingWindow/ItemsWindow"]
+[node name="CraftBomberPlane" type="Button" parent="CraftingWindow/ItemsWindow"]
 offset_left = 456.0
 offset_top = 424.0
 offset_right = 1016.0
 offset_bottom = 512.0
 theme_override_font_sizes/font_size = 20
-text = "Wall | TP: 14 | Cost: i forgor"
+text = "Bomber Plane | Requires 15 SP
+Cost: 2 Food, 16 GP, 8 AP "
+
+[node name="CraftMissile" type="Button" parent="CraftingWindow/ItemsWindow"]
+offset_left = 456.0
+offset_top = 520.0
+offset_right = 1016.0
+offset_bottom = 608.0
+theme_override_font_sizes/font_size = 20
+text = "Missile | Requires 10 SP | Cost: 20 GP, 15 AP "
 
 [node name="Undo" type="Button" parent="."]
 visible = false
@@ -521,6 +531,11 @@ vertical_alignment = 1
 [connection signal="pressed" from="CraftingWindow/TroopsWindow/CraftTank" to="CraftingWindow" method="_on_craft_tank_pressed"]
 [connection signal="pressed" from="CraftingWindow/TroopsWindow/CraftMortar" to="CraftingWindow" method="_on_craft_mortar_pressed"]
 [connection signal="pressed" from="CraftingWindow/TroopsWindow/CraftWall" to="CraftingWindow" method="_on_craft_wall_pressed"]
+[connection signal="pressed" from="CraftingWindow/ItemsWindow/CraftMedkit" to="CraftingWindow" method="_on_craft_medkit_pressed"]
+[connection signal="pressed" from="CraftingWindow/ItemsWindow/CraftUpgradedTroop" to="CraftingWindow" method="_on_craft_upgraded_troop_pressed"]
+[connection signal="pressed" from="CraftingWindow/ItemsWindow/CraftJetPlane" to="CraftingWindow" method="_on_craft_jet_plane_pressed"]
+[connection signal="pressed" from="CraftingWindow/ItemsWindow/CraftBomberPlane" to="CraftingWindow" method="_on_craft_bomber_plane_pressed"]
+[connection signal="pressed" from="CraftingWindow/ItemsWindow/CraftMissile" to="CraftingWindow" method="_on_craft_missile_pressed"]
 [connection signal="pressed" from="Undo" to="." method="_on_undo_pressed"]
 [connection signal="pressed" from="Ready" to="." method="_on_ready_pressed"]
 [connection signal="pressed" from="Craft" to="." method="_on_craft_pressed"]

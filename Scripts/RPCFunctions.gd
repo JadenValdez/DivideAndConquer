@@ -55,6 +55,11 @@ func UpdateTroopInfo(troop_info: Dictionary) -> void:
 @rpc("call_local", "any_peer")
 func UpdateTerritoryColors(location_info: Dictionary) -> void:
 	LocationInfo.Tiles = location_info
+	for id in GameManager.Players:
+		GameManager.Players[id].Territory = []
+		for tile_name in LocationInfo.Tiles:
+			if LocationInfo.Tiles[tile_name] == GameManager.Players[id].Name:
+				GameManager.Players[id].Territory.append(tile_name)
 	SignalBus.update_territory_colors.emit()
 	SignalBus.get_round_resources.emit()
 	SignalBus.start_next_round.emit()
