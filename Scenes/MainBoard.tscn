@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bj4j158tv1i24"]
+[gd_scene load_steps=8 format=3 uid="uid://bj4j158tv1i24"]
 
 [ext_resource type="Script" path="res://Scripts/MainBoard.gd" id="1_2k0u8"]
 [ext_resource type="PackedScene" uid="uid://bstvhaqdh3i70" path="res://Scenes/Territory.tscn" id="1_jx5dg"]
@@ -6,11 +6,13 @@
 [ext_resource type="Script" path="res://Scripts/ResourceTabs.gd" id="4_g2v8w"]
 [ext_resource type="Script" path="res://Scripts/MortarButtons.gd" id="4_oeokj"]
 [ext_resource type="Script" path="res://Scripts/CraftingWindow.gd" id="6_mgc0v"]
+[ext_resource type="PackedScene" uid="uid://b2l66e5ou76lm" path="res://Scenes/ItemButton.tscn" id="7_2i5tf"]
 
 [node name="MainBoard" type="Node2D"]
 script = ExtResource("1_2k0u8")
 
 [node name="BoardSpaces" type="Node2D" parent="."]
+position = Vector2(-40, 0)
 
 [node name="Home" type="Node2D" parent="BoardSpaces"]
 position = Vector2(256, 0)
@@ -283,7 +285,7 @@ tile_id = "E01"
 tile_type = "E"
 
 [node name="BoardLines" type="Node2D" parent="."]
-position = Vector2(256, 0)
+position = Vector2(216, 0)
 script = ExtResource("3_l8gkv")
 
 [node name="ResourceTabs" type="Node2D" parent="."]
@@ -357,10 +359,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MortarButtons" type="Node2D" parent="."]
+position = Vector2(-40, 0)
 script = ExtResource("4_oeokj")
 
 [node name="Fire" type="Button" parent="MortarButtons"]
-visible = false
 offset_left = 728.0
 offset_top = 576.0
 offset_right = 880.0
@@ -368,7 +370,6 @@ offset_bottom = 607.0
 text = "Firing Mode"
 
 [node name="Move" type="Button" parent="MortarButtons"]
-visible = false
 offset_left = 728.0
 offset_top = 576.0
 offset_right = 880.0
@@ -376,7 +377,6 @@ offset_bottom = 607.0
 text = "Movement Mode"
 
 [node name="FireLabel" type="Label" parent="MortarButtons"]
-visible = false
 offset_left = 728.0
 offset_top = 576.0
 offset_right = 880.0
@@ -492,8 +492,29 @@ offset_bottom = 608.0
 theme_override_font_sizes/font_size = 20
 text = "Missile | Requires 10 SP | Cost: 20 GP, 15 AP "
 
+[node name="ItemButtons" type="Node2D" parent="."]
+
+[node name="Medkit" parent="ItemButtons" instance=ExtResource("7_2i5tf")]
+position = Vector2(1024, 184)
+item_name = "Medkit"
+
+[node name="Upgraded Troop" parent="ItemButtons" instance=ExtResource("7_2i5tf")]
+position = Vector2(1024, 256)
+item_name = "Upgraded Troop"
+
+[node name="Jet Plane" parent="ItemButtons" instance=ExtResource("7_2i5tf")]
+position = Vector2(1024, 328)
+item_name = "Jet Plane"
+
+[node name="Bomber Plane" parent="ItemButtons" instance=ExtResource("7_2i5tf")]
+position = Vector2(1024, 400)
+item_name = "Bomber Plane"
+
+[node name="Missile" parent="ItemButtons" instance=ExtResource("7_2i5tf")]
+position = Vector2(1024, 472)
+item_name = "Missile"
+
 [node name="Undo" type="Button" parent="."]
-visible = false
 offset_left = 496.0
 offset_top = 576.0
 offset_right = 616.0
@@ -508,18 +529,18 @@ offset_bottom = 623.0
 text = "Ready Up"
 
 [node name="Craft" type="Button" parent="."]
-offset_left = 1064.0
-offset_top = 176.0
-offset_right = 1144.0
-offset_bottom = 232.0
+offset_left = 952.0
+offset_top = 8.0
+offset_right = 1032.0
+offset_bottom = 64.0
 theme_override_font_sizes/font_size = 25
 text = "Craft"
 
 [node name="ReadyPlayersLabel" type="Label" parent="."]
-offset_left = 1008.0
-offset_top = 488.0
-offset_right = 1152.0
-offset_bottom = 552.0
+offset_left = 872.0
+offset_top = 568.0
+offset_right = 1016.0
+offset_bottom = 632.0
 text = "Ready:
 0/0"
 horizontal_alignment = 1

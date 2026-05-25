@@ -56,10 +56,10 @@ func _on_craft_upgraded_troop_pressed() -> void:
 		if GameManager.Players[multiplayer.get_unique_id()].Resources.Food >= 1 && GameManager.Players[multiplayer.get_unique_id()].Resources.GP >= 2:
 			GameManager.Players[multiplayer.get_unique_id()].Resources.Food -= 1
 			GameManager.Players[multiplayer.get_unique_id()].Resources.GP -= 2
-			SignalBus.craft_item.emit("UpgradedTroop")
+			SignalBus.craft_item.emit("Upgraded Troop")
 			SignalBus.update_resource_tabs.emit()
 		else:
-			print("Cannot afford UpgradedTroop")
+			print("Cannot afford Upgraded Troop")
 	else:
 		print("Not Enough SP")
 
@@ -70,10 +70,10 @@ func _on_craft_jet_plane_pressed() -> void:
 			GameManager.Players[multiplayer.get_unique_id()].Resources.Food -= 2
 			GameManager.Players[multiplayer.get_unique_id()].Resources.GP -= 10
 			GameManager.Players[multiplayer.get_unique_id()].Resources.AP -= 6
-			SignalBus.craft_item.emit("JetPlane")
+			SignalBus.craft_item.emit("Jet Plane")
 			SignalBus.update_resource_tabs.emit()
 		else:
-			print("Cannot afford JetPlane")
+			print("Cannot afford Jet Plane")
 	else:
 		print("Not Enough SP")
 
@@ -84,10 +84,10 @@ func _on_craft_bomber_plane_pressed() -> void:
 			GameManager.Players[multiplayer.get_unique_id()].Resources.Food -= 2
 			GameManager.Players[multiplayer.get_unique_id()].Resources.GP -= 16
 			GameManager.Players[multiplayer.get_unique_id()].Resources.AP -= 8
-			SignalBus.craft_item.emit("BomberPlane")
+			SignalBus.craft_item.emit("Bomber Plane")
 			SignalBus.update_resource_tabs.emit()
 		else:
-			print("Cannot afford BomberPlane")
+			print("Cannot afford Bomber Plane")
 	else:
 		print("Not Enough SP")
 

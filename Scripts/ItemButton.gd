@@ -1,0 +1,29 @@
+extends Node2D
+
+@export var item_name: String
+var item_amount: int = 0
+
+@onready var label: Label = $Label
+@onready var color_rect: ColorRect = $ColorRect
+
+func _ready() -> void:
+	SignalBus.craft_item.connect(_craft_item)
+	
+	label.text = item_name + "
+	x" + str(item_amount) 
+	color_rect.modulate = GameManager.Players[multiplayer.get_unique_id()].Color
+
+func _craft_item(item: String) -> void:
+	if item == item_name:
+		item_amount += 1
+		label.text = item_name + "
+		x" + str(item_amount) 
+
+func _on_control_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				if item_amount <= 0:
+					print("No " + item_name + "s remaining.")
+				else:
+					SignalBus.select_item.emit(item_name)

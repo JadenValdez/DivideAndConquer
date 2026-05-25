@@ -35,4 +35,7 @@ signal craft_troop
 signal craft_item
 signal update_resource_tabs
 
+signal select_item
+signal use_item
+
 signal start_next_round
