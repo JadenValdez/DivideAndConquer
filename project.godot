@@ -28,6 +28,7 @@ PlayerInformation="*res://Scripts/PlayerInformation.gd"
 MovementLogic="*res://Scripts/MovementLogic.gd"
 ConquestSimulation="*res://Scripts/ConquestSimulation.gd"
 LocationInfo="*res://Scripts/LocationInfo.gd"
+ItemLogic="*res://Scripts/ItemLogic.gd"
 
 [debug]
 

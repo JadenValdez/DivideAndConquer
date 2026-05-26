@@ -37,5 +37,6 @@ signal update_resource_tabs
 
 signal select_item
 signal use_item
+signal show_troop_item_buttons
 
 signal start_next_round

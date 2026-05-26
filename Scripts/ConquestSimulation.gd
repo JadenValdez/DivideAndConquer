@@ -247,6 +247,21 @@ func calculate_troop_losses(winning_team: String, tp_loss: int) -> void:
 				return
 				
 	for troop in WinningTeamTroops:
+		if TroopInfo[troop].Type == "Upgraded Troop":
+			if CurrentTPLoss >= TroopInfo[troop].TP:
+				CurrentTPLoss -= TroopInfo[troop].TP
+				TroopLocations[CurrentLocation].erase(troop)
+				TroopInfo[troop].Status = "Dead"
+				if CurrentTPLoss == 0:
+					return
+			else:
+				TroopInfo[troop].TP -= CurrentTPLoss
+				if TroopInfo[troop].TP == 0:
+					TroopLocations[CurrentLocation].erase(troop)
+					TroopInfo[troop].Status = "Dead"
+				return
+				
+	for troop in WinningTeamTroops:
 		if TroopInfo[troop].Type == "Troop":
 			if CurrentTPLoss >= TroopInfo[troop].TP:
 				CurrentTPLoss -= TroopInfo[troop].TP

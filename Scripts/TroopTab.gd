@@ -14,6 +14,8 @@ extends Node2D
 @onready var move_4: Node2D = $Move4
 @onready var m_4_location: Label = $Move4/M4Location
 
+@onready var item_button: Node2D = $ItemButton
+
 var troop_id: int
 var troop_type: String
 var troop_tp: int
@@ -38,6 +40,8 @@ func _ready() -> void:
 	SignalBus.move_troop_tabs.connect(_move_troop_tabs)
 	SignalBus.update_troop_info.connect(_update_troop_info)
 	
+	SignalBus.show_troop_item_buttons.connect(_show_troop_item_buttons)
+	SignalBus.select_item.connect(_select_item)
 	
 	color_rect.modulate = tab_color
 	
@@ -295,3 +299,34 @@ func _update_troop_info(troop: int, tp: int, location_troop: String) -> void:
 		
 		location = location_troop
 		troop_location.text = location
+
+func _show_troop_item_buttons(item_name: String) -> void:
+	item_button.hide()
+	match item_name:
+		"Medkit":
+			if troop_tp <= UnitsInformation.Units[troop_type].TP:
+				item_button.show()
+		"Upgraded Troop":
+			if troop_type == "Troop":
+				item_button.show()
+
+func _on_ib_control_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				match ItemLogic.CurrentItem:
+					"None":
+						pass
+					"Medkit":
+						troop_tp += ceil(UnitsInformation.Units[troop_type].TP / 2)
+						if troop_tp > UnitsInformation.Units[troop_type].TP:
+							troop_tp = UnitsInformation.Units[troop_type].TP
+						SignalBus.use_item.emit("Medkit")
+					"Upgraded Troop":
+						troop_type = "Upgraded Troop"
+						troop_tp += 1
+						SignalBus.use_item.emit("Upgraded Troop")
+						
+func _select_item(item_name: String) -> void:
+	if item_name == "None":
+		item_button.hide()

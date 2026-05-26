@@ -9,6 +9,10 @@ const Units: Dictionary = {
 		"TP": 1
 	},
 	
+	"Upgraded Troop": {
+		"TP": 2
+	},
+	
 	"Tank": {
 		"TP": 4
 	},

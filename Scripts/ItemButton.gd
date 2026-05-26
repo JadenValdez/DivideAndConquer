@@ -8,6 +8,7 @@ var item_amount: int = 0
 
 func _ready() -> void:
 	SignalBus.craft_item.connect(_craft_item)
+	SignalBus.use_item.connect(_use_item)
 	
 	label.text = item_name + "
 	x" + str(item_amount) 
@@ -18,6 +19,14 @@ func _craft_item(item: String) -> void:
 		item_amount += 1
 		label.text = item_name + "
 		x" + str(item_amount) 
+
+func _use_item(item: String) -> void:
+	if item == item_name:
+		item_amount -= 1
+		label.text = item_name + "
+		x" + str(item_amount) 
+		if item_amount <= 0:
+			SignalBus.select_item.emit("None")
 
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:

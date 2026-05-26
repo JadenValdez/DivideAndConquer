@@ -114,4 +114,21 @@ text = "X"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ItemButton" type="Node2D" parent="."]
+
+[node name="IBBackground" type="ColorRect" parent="ItemButton"]
+offset_left = 264.0
+offset_top = 8.0
+offset_right = 296.0
+offset_bottom = 40.0
+
+[node name="IBControl" type="Control" parent="ItemButton"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 264.0
+offset_top = 8.0
+offset_right = 296.0
+offset_bottom = 40.0
+
 [connection signal="gui_input" from="Control" to="." method="_on_control_gui_input"]
+[connection signal="gui_input" from="ItemButton/IBControl" to="." method="_on_ib_control_gui_input"]
