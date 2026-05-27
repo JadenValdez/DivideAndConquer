@@ -21,3 +21,12 @@ func _select_item(item_name: String) -> void:
 			SignalBus.show_plane_locations.emit(item_name)
 		"Missile":
 			SignalBus.show_plane_locations.emit(item_name)
+
+func UsePlaneItem() -> void:
+	match CurrentItem:
+		"Jet Plane":
+			pass
+		"Bomber Plane":
+			pass
+		"Missile":
+			pass

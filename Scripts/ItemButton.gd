@@ -35,4 +35,5 @@ func _on_control_gui_input(event: InputEvent) -> void:
 				if item_amount <= 0:
 					print("No " + item_name + "s remaining.")
 				else:
+					SignalBus.select_troop.emit(0, "Troop", "A01")
 					SignalBus.select_item.emit(item_name)

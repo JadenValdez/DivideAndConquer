@@ -60,6 +60,7 @@ func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
+				SignalBus.select_item.emit("None")
 				SignalBus.select_troop.emit(troop_id, troop_type, location)
 
 func _select_troop(id: int, _type: String, _troop_location: String) -> void:

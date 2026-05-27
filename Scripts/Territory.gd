@@ -29,6 +29,7 @@ func _ready() -> void:
 	SignalBus.update_territory_colors.connect(_update_territory_colors)
 	SignalBus.get_round_resources.connect(_get_round_resources)
 	
+	SignalBus.show_plane_locations.connect(_show_plane_locations)
 	
 	neighbors = TileNeighbors.NEIGHBORS[tile_id]
 	label.text = tile_id
@@ -42,7 +43,11 @@ func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				SignalBus.select_tile.emit(tile_id)
+				if ItemLogic.CurrentItem == "Jet Plane" || ItemLogic.CurrentItem == "Bomber Plane" || ItemLogic.CurrentItem == "Missile":
+					if place.visible:
+						ItemLogic.UsePlaneItem()
+				else:
+					SignalBus.select_tile.emit(tile_id)
 
 func _get_tile_position(id: String) -> void:
 	if id == tile_id:
@@ -97,3 +102,11 @@ func _update_territory_colors() -> void:
 func _get_round_resources() -> void:
 	if LocationInfo.Tiles[tile_id] == GameManager.Players[multiplayer.get_unique_id()].Name:
 		SignalBus.add_resources.emit(tile_type)
+
+func _show_plane_locations(item_name: String) -> void:
+	place.hide()
+	move.hide()
+	pause.hide()
+	for id in GameManager.Players[multiplayer.get_unique_id()].Territory:
+		if id == tile_id:
+			place.show()
