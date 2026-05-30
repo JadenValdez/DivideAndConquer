@@ -45,7 +45,9 @@ func _on_control_gui_input(event: InputEvent) -> void:
 			MOUSE_BUTTON_LEFT:
 				if ItemLogic.CurrentItem == "Jet Plane" || ItemLogic.CurrentItem == "Bomber Plane" || ItemLogic.CurrentItem == "Missile":
 					if place.visible:
-						ItemLogic.UsePlaneItem()
+						ItemLogic.UsePlaneItem(tile_id)
+					else:
+						SignalBus.select_tile.emit(tile_id)
 				else:
 					SignalBus.select_tile.emit(tile_id)
 

@@ -55,6 +55,17 @@ func SelectTile(tile_id: String) -> void:
 			for space in MoveableSpaces:
 				if tile_id == space:
 					SignalBus.plan_troop_move.emit(SelectedTroop, "Fire", tile_id)
+	elif CurrentAction == "Plane Item":
+		for space in MoveableSpaces:
+			if tile_id == space:
+				ItemLogic.PlanItemMove()
+	elif CurrentAction == "Missile Item":
+		if tile_id == CurrentSpace:
+			ItemLogic.DetonateMissile()
+		else:
+			for space in MoveableSpaces:
+				if tile_id == space:
+					ItemLogic.PlanItemMove()
 					
 func MortarFiringMode() -> void:
 	CurrentAction = "Fire"

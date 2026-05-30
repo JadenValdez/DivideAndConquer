@@ -2,7 +2,6 @@ extends Node
 
 var CurrentItem: String = "None"
 
-
 func _ready() -> void:
 	SignalBus.select_item.connect(_select_item)
 
@@ -22,11 +21,20 @@ func _select_item(item_name: String) -> void:
 		"Missile":
 			SignalBus.show_plane_locations.emit(item_name)
 
-func UsePlaneItem() -> void:
+func UsePlaneItem(location: String) -> void:
+	MovementLogic.MoveableSpaces = TileNeighbors.NEIGHBORS[location]
+	MovementLogic.CurrentSpace = "00"
+	SignalBus.show_movement_spaces.emit()
 	match CurrentItem:
 		"Jet Plane":
-			pass
+			MovementLogic.CurrentAction = "Plane Item"
 		"Bomber Plane":
-			pass
+			MovementLogic.CurrentAction = "Plane Item"
 		"Missile":
-			pass
+			MovementLogic.CurrentAction = "Missile Item"
+
+func PlanItemMove() -> void:
+	pass
+	
+func DetonateMissile() -> void:
+	pass
