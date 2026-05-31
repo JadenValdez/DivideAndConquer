@@ -1,5 +1,6 @@
 extends Node
 
+#information for each color
 const COLORS: Dictionary = {
 	"Red": {
 		"Color": Color(1, 0, 0, 1),

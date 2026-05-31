@@ -6,17 +6,18 @@ extends Node2D
 var color_name: String
 var button_color: Color
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	color_rect.modulate = button_color
 	SignalBus.update_color_buttons.connect(_update_color_buttons)
 
+#sets the player's team and color of this button, if available
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				RPCFunctions.SelectColor.rpc(multiplayer.get_unique_id(), color_name)
 
+#updates the visuals of the color buttons based on which ones have been selected
 func _update_color_buttons() -> void:
 	selected.hide()
 	for id in GameManager.Players:

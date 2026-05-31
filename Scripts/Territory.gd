@@ -43,13 +43,13 @@ func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				if ItemLogic.CurrentItem == "Jet Plane" || ItemLogic.CurrentItem == "Bomber Plane" || ItemLogic.CurrentItem == "Missile":
-					if place.visible:
-						ItemLogic.UsePlaneItem(tile_id)
-					else:
-						SignalBus.select_tile.emit(tile_id)
-				else:
-					SignalBus.select_tile.emit(tile_id)
+				#if ItemLogic.CurrentItem == "Jet Plane" || ItemLogic.CurrentItem == "Bomber Plane" || ItemLogic.CurrentItem == "Missile":
+					#if place.visible:
+						#ItemLogic.UsePlaneItem(tile_id)
+					#else:
+						#SignalBus.select_tile.emit(tile_id)
+				#else:
+				SignalBus.select_tile.emit(tile_id)
 
 func _get_tile_position(id: String) -> void:
 	if id == tile_id:

@@ -29,6 +29,7 @@ func _ready() -> void:
 #"M3": m_3_location.text, 
 #"M4": m_4_location.text
 
+#simulates the conquest hase using each player's attack list
 func SimulateConquest(attack_lists: Dictionary) -> void:
 	
 	TroopInfo = {}
@@ -61,14 +62,18 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 	print("M0")
 	print(TroopLocations)
 	
+	#puts each troop into their positions each move
 	for move in ["M1", "M2", "M3", "M4"]:
 		
 		for location in TroopLocations.keys():
 			for troop in TroopLocations[location].keys():
 				print(troop)
+				
+				#if a troop has been part of a previous territory capture, they are inactive
 				if TroopLocations[location][troop] == "Inactive":
 					print("inactive")
 					
+				#if a troop stays at their location, they are idle
 				elif TroopInfo[troop][move] == location:
 					TroopLocations[location][troop] = "Idle"
 					TroopInfo[troop].Location = location
@@ -79,8 +84,10 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					TroopInfo[troop].Location = location
 					print("x location")
 					
+				#if a troop is active and does not stay at their location, move them
 				elif TroopInfo[troop][move] != "X":
 					
+					#if the troop is a mortar and shot this move, create a new MortarShot troop for this move
 					if TroopInfo[troop].FireMove == move:
 						TroopLocations[TroopInfo[troop][move]][troop + 900] = "Active"
 						TroopInfo[troop + 900] = {
@@ -89,8 +96,8 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 							"Status": "Alive"
 						}
 						
+					#move the troop
 					else:
-						
 						if !TroopLocations.has(TroopInfo[troop][move]):
 							TroopLocations[TroopInfo[troop][move]] = {}
 							
@@ -99,10 +106,13 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 						TroopInfo[troop].Location = TroopInfo[troop][move]
 		print(move)
 		print(TroopLocations)
+		#check the battles at each location
 		check_battles()
 		
+	#update the status of troops for all players
 	RPCFunctions.UpdateTroopInfo.rpc(TroopInfo.duplicate(true))
 
+#check the battles at each location
 func check_battles() -> void:
 	LocationBattles = {}
 	for location in TroopLocations.keys():
@@ -113,37 +123,45 @@ func check_battles() -> void:
 			if !LocationBattles[CurrentLocation].has(TroopInfo[troop].Team):
 				LocationBattles[CurrentLocation].append(TroopInfo[troop].Team)
 				
-				
+		#this should only happen if all troops of a team move off a tile
 		if LocationBattles[CurrentLocation].size() == 0:
 			print("where is everyone")
 			
+		#if there is only one team, check who owns the tile they are on
 		elif LocationBattles[CurrentLocation].size() == 1:
 			
+			#if the tile is not owned by anyone, they win by default
 			if LocationInfo.Tiles[CurrentLocation] == "None":
 				default_win(LocationBattles[CurrentLocation][0])
 				
+			#if the tile is owned by the team, nothing happens
 			elif LocationInfo.Tiles[CurrentLocation] == LocationBattles[CurrentLocation][0]:
 				pass
-				#nothing happens
 				
+			#if the tile is owned by an opposing team, set the opposing team power to 1
 			else:
-				
 				WinningTeam = determine_battle_winner(
 					{TroopLocations[CurrentLocation][0]: calculate_team_tp(TroopLocations[location][0]),
 				LocationBattles[CurrentLocation].keys()[0]: 1}
 				)
 				
+				#if both sides have the same team power, the tile becomes neutral
 				if WinningTeam == "None":
 					LocationInfo.Tiles[CurrentLocation] = "None"
+					
+				#if the attacking team wins, the tile is owned by the attackers and the troops become inactive
 				elif WinningTeam != LocationInfo.Tiles[CurrentLocation]:
 					LocationInfo.Tiles[CurrentLocation] = WinningTeam
 					for troop in TroopLocations[CurrentLocation]:
 						if TroopLocations[CurrentLocation][troop] != "Dead":
 							TroopLocations[CurrentLocation][troop] = "Inactive"
+							
+				#if the defending team wins for some reason (shouldn't really happen)
 				else:
 					LocationInfo.Tiles[CurrentLocation] = WinningTeam
 					
 				
+		#if there is more than one team on a tile, simulate a battle between all of them
 		else:
 			TeamTPValues = {}
 			for team in LocationBattles[CurrentLocation]:
@@ -164,6 +182,7 @@ func check_battles() -> void:
 		if TroopInfo[troop].Type == "MortarShot":
 			TroopInfo.erase(troop)
 
+#if a troop goes onto a neutral tile, they automatically claim it and become inactive
 func default_win(winning_team: String) -> void:
 	for troop in TroopLocations[CurrentLocation]:
 		TroopLocations[CurrentLocation][troop] = "Inactive"
