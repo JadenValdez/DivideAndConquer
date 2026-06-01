@@ -5,6 +5,8 @@ var CurrentItem: String = "None"
 func _ready() -> void:
 	SignalBus.select_item.connect(_select_item)
 
+#if the player uses a plane item, create a new troop tab for it
+#if the player uses an instant item, then show the "use" button for any valid troops
 func _select_item(item_name: String) -> void:
 	CurrentItem = item_name
 	match item_name:
@@ -20,6 +22,7 @@ func _select_item(item_name: String) -> void:
 			SignalBus.show_plane_locations.emit(item_name)
 		"Missile":
 			SignalBus.show_plane_locations.emit(item_name)
+
 
 func UsePlaneItem(location: String) -> void:
 	MovementLogic.MoveableSpaces = TileNeighbors.NEIGHBORS[location]

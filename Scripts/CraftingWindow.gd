@@ -1,11 +1,13 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
+#troop crafts
+#if the player has enough resources to craft a troop, then remove those resources and create a new troop tab
 
+#crafts a troop
 func _on_craft_troop_pressed() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Resources.Food >= 1 && GameManager.Players[multiplayer.get_unique_id()].Resources.AP >= 1:
 		GameManager.Players[multiplayer.get_unique_id()].Resources.Food -= 1
@@ -15,6 +17,7 @@ func _on_craft_troop_pressed() -> void:
 	else:
 		print("Cannot afford Troop")
 
+#crafts a tank
 func _on_craft_tank_pressed() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Resources.Food >= 1 && GameManager.Players[multiplayer.get_unique_id()].Resources.GP >= 2:
 		GameManager.Players[multiplayer.get_unique_id()].Resources.Food -= 1
@@ -23,7 +26,8 @@ func _on_craft_tank_pressed() -> void:
 		SignalBus.update_resource_tabs.emit()
 	else:
 		print("Cannot afford Tank")
-
+		
+#crafts a mortar
 func _on_craft_mortar_pressed() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Resources.GP >= 1 && GameManager.Players[multiplayer.get_unique_id()].Resources.AP >= 2:
 		GameManager.Players[multiplayer.get_unique_id()].Resources.GP -= 1
@@ -33,10 +37,15 @@ func _on_craft_mortar_pressed() -> void:
 	else:
 		print("Cannot afford Mortar")
 
-
+#crafts a wall
 func _on_craft_wall_pressed() -> void:
 	pass
+	
+	
+#item crafts
+#if the player has enough SP and resources to craft an item, then remove those resources (but keep SP) and add 1 to the corresponding item button
 
+#crafts a medkit
 func _on_craft_medkit_pressed() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Resources.SP >= 2:
 		if GameManager.Players[multiplayer.get_unique_id()].Resources.Food >= 8 && GameManager.Players[multiplayer.get_unique_id()].Resources.GP >= 3 && GameManager.Players[multiplayer.get_unique_id()].Resources.AP >= 2:
@@ -50,7 +59,7 @@ func _on_craft_medkit_pressed() -> void:
 	else:
 		print("Not Enough SP")
 
-
+#crafts an upgraded troop item
 func _on_craft_upgraded_troop_pressed() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Resources.SP >= 3:
 		if GameManager.Players[multiplayer.get_unique_id()].Resources.Food >= 1 && GameManager.Players[multiplayer.get_unique_id()].Resources.GP >= 2:
@@ -63,7 +72,7 @@ func _on_craft_upgraded_troop_pressed() -> void:
 	else:
 		print("Not Enough SP")
 
-
+#crafts a jet plane
 func _on_craft_jet_plane_pressed() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Resources.SP >= 5:
 		if GameManager.Players[multiplayer.get_unique_id()].Resources.Food >= 2 && GameManager.Players[multiplayer.get_unique_id()].Resources.GP >= 10 && GameManager.Players[multiplayer.get_unique_id()].Resources.AP >= 6:
@@ -77,7 +86,7 @@ func _on_craft_jet_plane_pressed() -> void:
 	else:
 		print("Not Enough SP")
 
-
+#crafts a bomber plane
 func _on_craft_bomber_plane_pressed() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Resources.SP >= 15:
 		if GameManager.Players[multiplayer.get_unique_id()].Resources.Food >= 2 && GameManager.Players[multiplayer.get_unique_id()].Resources.GP >= 16 && GameManager.Players[multiplayer.get_unique_id()].Resources.AP >= 8:
@@ -91,7 +100,7 @@ func _on_craft_bomber_plane_pressed() -> void:
 	else:
 		print("Not Enough SP")
 
-
+#crafts a missile
 func _on_craft_missile_pressed() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Resources.SP >= 10:
 		if GameManager.Players[multiplayer.get_unique_id()].Resources.GP >= 20 && GameManager.Players[multiplayer.get_unique_id()].Resources.AP >= 15:

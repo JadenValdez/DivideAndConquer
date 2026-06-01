@@ -167,12 +167,20 @@ func check_battles() -> void:
 			for team in LocationBattles[CurrentLocation]:
 				TeamTPValues[team] = calculate_team_tp(team)
 			WinningTeam = determine_battle_winner(TeamTPValues)
+			
+			#if there is a tie, the tile becomes neutral
 			if WinningTeam == "None":
 				LocationInfo.Tiles[CurrentLocation] = "None"
+				
+			#if the winning team did not originally own the tile, then all of their troops on that tile become inactive
 			elif WinningTeam != LocationInfo.Tiles[CurrentLocation]:
 				LocationInfo.Tiles[CurrentLocation] = WinningTeam
 				for troop in TroopLocations[CurrentLocation]:
 					TroopLocations[CurrentLocation][troop] = "Inactive"
+					
+			#if the winning team originally owned the tile, nothing happens
+			elif WinningTeam == LocationInfo.Tiles[CurrentLocation]:
+				pass
 		
 		for troop in TroopLocations[CurrentLocation]:
 			if TroopInfo[troop].Type == "MortarShot":
@@ -188,6 +196,7 @@ func default_win(winning_team: String) -> void:
 		TroopLocations[CurrentLocation][troop] = "Inactive"
 	LocationInfo.Tiles[CurrentLocation] = winning_team
 	
+#calculate the tp of each team based on their troops on that tile
 func calculate_team_tp(team: String) -> int:
 	TeamTP = 0
 	for troop in TroopLocations[CurrentLocation]:
@@ -198,6 +207,8 @@ func calculate_team_tp(team: String) -> int:
 		return (TeamTP + 1)
 	return TeamTP
 	
+#compares all team powers, then gives the win to the team with the most TP
+#if there is a tie for most TP, then all teams lose and the tile becomes neutral
 func determine_battle_winner(tp_values: Dictionary) -> String:
 	TeamTP = 0
 	TeamTP2nd = 0
@@ -226,6 +237,8 @@ func determine_battle_winner(tp_values: Dictionary) -> String:
 		print("idk")
 		return("None")
 	
+#deals the amount of TP of the 2nd-highest team to the winning team
+#will deal TP damage in order from most Max TP to least, with the exception of Mortar Shot (first) and Troop Leader (last)
 func calculate_troop_losses(winning_team: String, tp_loss: int) -> void:
 	WinningTeamTroops = []
 	CurrentTPLoss = tp_loss
@@ -233,12 +246,6 @@ func calculate_troop_losses(winning_team: String, tp_loss: int) -> void:
 		if TroopInfo[troop].Team == winning_team:
 			WinningTeamTroops.append(troop)
 			
-			
-	#mortar shot (not coded yet)
-	#tank
-	#troop
-	#actual mortar
-	#troop leader
 	for troop in WinningTeamTroops:
 		if TroopInfo[troop].Type == "MortarShot":
 			if CurrentTPLoss >= 5:
@@ -316,6 +323,7 @@ func calculate_troop_losses(winning_team: String, tp_loss: int) -> void:
 					TroopInfo[troop].Status = "Dead"
 				return
 				
+#if a team loses a battle, all their troops on that tile are defeated
 func battle_loss(team: String) -> void:
 	for troop in TroopLocations[CurrentLocation].keys():
 		if TroopInfo[troop].Team == team:
