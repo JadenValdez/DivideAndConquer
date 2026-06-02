@@ -23,7 +23,7 @@ func _select_item(item_name: String) -> void:
 		"Missile":
 			SignalBus.show_plane_locations.emit(item_name)
 
-
+#outdated
 func UsePlaneItem(location: String) -> void:
 	MovementLogic.MoveableSpaces = TileNeighbors.NEIGHBORS[location]
 	MovementLogic.CurrentSpace = "00"
@@ -36,8 +36,10 @@ func UsePlaneItem(location: String) -> void:
 		"Missile":
 			MovementLogic.CurrentAction = "Missile Item"
 
+#outdated
 func PlanItemMove() -> void:
 	pass
 	
+#outdated
 func DetonateMissile() -> void:
 	pass

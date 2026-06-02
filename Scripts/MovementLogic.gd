@@ -13,13 +13,17 @@ func _ready() -> void:
 	SignalBus.mortar_firing_mode.connect(MortarFiringMode)
 	SignalBus.mortar_movement_mode.connect(MortarMovementMode)
 
+#if a troop is selcted, show the relevant indicators on nearby tiles
 func SelectTroop(troop_id: int, type: String, location: String) -> void:
 	
 	SelectedTroop = troop_id
+	
+	#if no troop is selected, reset the tile indicators
 	if troop_id == 0:
 		SignalBus.reset_tile_indicators.emit()
 		return
 	
+	#if the mortar is in firing mode, show the fire indicator on nearby tiles
 	if type == "MortarFire":
 		CurrentAction = "Fire"
 		MoveableSpaces = TileNeighbors.NEIGHBORS[location]

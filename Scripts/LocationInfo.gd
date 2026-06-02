@@ -1,5 +1,6 @@
 extends Node
 
+#tracks who owns each tile
 var Tiles = {
 	"R": "None",
 	"O": "None",

@@ -25,7 +25,8 @@ func _ready() -> void:
 	SignalBus.update_color_buttons.connect(_update_color_buttons)
 	
 	create_color_buttons()
-
+	
+#creates a 2x4 grid of buttons of each color
 func create_color_buttons() -> void:
 	color_row = 0
 	color_column = 0
@@ -43,6 +44,7 @@ func create_color_buttons() -> void:
 			color_column = 0
 			color_row += 1
 
+#sets the player's team, color, base, and troops based on what color they chose
 func _select_color(id: int, color_name: String) -> void:
 	GameManager.Players[id].Name = color_name
 	GameManager.Players[id].Color = Colors.COLORS[color_name].Color
@@ -57,6 +59,7 @@ func _select_color(id: int, color_name: String) -> void:
 	RPCFunctions.UpdateColorButtons.rpc()
 	RPCFunctions.UpdateReadyPlayersLobby.rpc()
 	
+#updates the number of ready players based on howmany chose their color
 func _update_ready_players_lobby() -> void:
 	GameManager.ReadyPlayers = 0
 	for player in GameManager.Players:
@@ -65,6 +68,7 @@ func _update_ready_players_lobby() -> void:
 	ready_players.text = "Players Ready:
 		" + str(GameManager.ReadyPlayers) + "/" + str(GameManager.TotalPlayers)
 
+#updates the color and name of the current color ui
 func _update_color_buttons() -> void:
 	if GameManager.Players[multiplayer.get_unique_id()].Name == "None":
 		current_color_background.modulate = Color(1, 1, 1, 1)
@@ -73,5 +77,6 @@ func _update_color_buttons() -> void:
 		current_color_background.modulate = Colors.COLORS[GameManager.Players[multiplayer.get_unique_id()].Name].Color
 		current_color_name.text = GameManager.Players[multiplayer.get_unique_id()].Name
 
+#starts the game for all players
 func _on_start_game_pressed() -> void:
 	RPCFunctions.StartGame.rpc()
