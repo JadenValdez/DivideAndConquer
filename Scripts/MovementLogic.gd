@@ -30,21 +30,28 @@ func SelectTroop(troop_id: int, type: String, location: String) -> void:
 		SignalBus.mortar_firing_mode.emit()
 		return
 	
+	#if the troop hasn't been placed yet, show the place indicator on owned tiles
 	if location == "None":
 		CurrentAction = "Place"
 		SignalBus.show_placement_spaces.emit()
 		
+	#else, show the movement indicators on nearby tiles, and the pause indicator on the current tile
 	else:
 		CurrentAction = "Move"
 		CurrentSpace = location
 		MoveableSpaces = TileNeighbors.NEIGHBORS[location]
 		SignalBus.show_movement_spaces.emit()
 
+#when selecting a tile, save it as a move depending on the current action
 func SelectTile(tile_id: String) -> void:
+	
+	#if placing a troop, set its location to the chosen tile
 	if CurrentAction == "Place":
 		for space in GameManager.Players[multiplayer.get_unique_id()].Territory:
 			if tile_id == space:
 				SignalBus.plan_troop_move.emit(SelectedTroop, "Place", tile_id)
+				
+	#if moving a troop, save the tile location for that move
 	elif CurrentAction == "Move":
 		if tile_id == CurrentSpace:
 			SignalBus.plan_troop_move.emit(SelectedTroop, "Pause", tile_id)
@@ -52,6 +59,8 @@ func SelectTile(tile_id: String) -> void:
 			for space in MoveableSpaces:
 				if tile_id == space:
 					SignalBus.plan_troop_move.emit(SelectedTroop, "Move", tile_id)
+					
+	#if firing a mortar, save the tile location for a mortar shot on that move
 	elif CurrentAction == "Fire":
 		if tile_id == CurrentSpace:
 			SignalBus.plan_troop_move.emit(SelectedTroop, "Pause", tile_id)
@@ -59,10 +68,14 @@ func SelectTile(tile_id: String) -> void:
 			for space in MoveableSpaces:
 				if tile_id == space:
 					SignalBus.plan_troop_move.emit(SelectedTroop, "Fire", tile_id)
+					
+	#to be implemented
 	elif CurrentAction == "Plane Item":
 		for space in MoveableSpaces:
 			if tile_id == space:
 				ItemLogic.PlanItemMove()
+				
+	#to be implemented
 	elif CurrentAction == "Missile Item":
 		if tile_id == CurrentSpace:
 			ItemLogic.DetonateMissile()
@@ -71,9 +84,11 @@ func SelectTile(tile_id: String) -> void:
 				if tile_id == space:
 					ItemLogic.PlanItemMove()
 					
+#set the current action to mortar firing
 func MortarFiringMode() -> void:
 	CurrentAction = "Fire"
 	
+#set the current action to mortar movement
 func MortarMovementMode() -> void:
 	CurrentAction = "Move"
 	

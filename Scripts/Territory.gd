@@ -39,6 +39,7 @@ func _ready() -> void:
 			color_rect.modulate = GameManager.Players[id].Color
 			LocationInfo.Tiles[tile_id] = GameManager.Players[id].Name
 
+#select this tile when clicked
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
@@ -51,10 +52,12 @@ func _on_control_gui_input(event: InputEvent) -> void:
 				#else:
 				SignalBus.select_tile.emit(tile_id)
 
+#get the position of this tile for board lines
 func _get_tile_position(id: String) -> void:
 	if id == tile_id:
 		SignalBus.set_tile_position.emit(self.position)
 		
+#shows the placement indicator for owned tiles when placing a unit
 func _show_placement_spaces() -> void:
 	place.hide()
 	move.hide()
@@ -63,6 +66,8 @@ func _show_placement_spaces() -> void:
 		if id == tile_id:
 			place.show()
 		
+#shows the movement indicator for nearby tiles when moving a unit
+#shows the pause indicator for the current tile when moving a unit
 func _show_movement_spaces() -> void:
 	place.hide()
 	move.hide()
@@ -73,6 +78,7 @@ func _show_movement_spaces() -> void:
 	if MovementLogic.CurrentSpace == tile_id:
 		pause.show()
 
+#shows the fire indicator for nearby tiles when in mortar firing mode
 func _mortar_firing_mode() -> void:
 	place.hide()
 	move.hide()
@@ -83,28 +89,35 @@ func _mortar_firing_mode() -> void:
 	if MovementLogic.CurrentSpace == tile_id:
 		pause.show()
 			
+#shows the movement indicator for nearby tiles when in mortar movement mode
 func _mortar_movement_mode() -> void:
 	fire.hide()
 	for id in MovementLogic.MoveableSpaces:
 		if id == tile_id:
 			move.show()
+	if MovementLogic.CurrentSpace == tile_id:
+		pause.show()
 
+#resetss all tile indicators
 func _reset_tile_indicators() -> void:
 	place.hide()
 	move.hide()
 	pause.hide()
 	fire.hide()
 
+#updates the tile's color based on who owns it
 func _update_territory_colors() -> void:
 	if LocationInfo.Tiles[tile_id] == "None":
 		color_rect.modulate = Color(1, 1, 1, 1)
 	else:
 		color_rect.modulate = Colors.COLORS[LocationInfo.Tiles[tile_id]].Color
 
+#add resources to the player that owns this tile that depends on this tile's type
 func _get_round_resources() -> void:
 	if LocationInfo.Tiles[tile_id] == GameManager.Players[multiplayer.get_unique_id()].Name:
 		SignalBus.add_resources.emit(tile_type)
 
+#not implemented yet
 func _show_plane_locations(item_name: String) -> void:
 	place.hide()
 	move.hide()

@@ -1,6 +1,6 @@
 extends Node
 
-#the neighbors for each tile
+#the neighbors for each tile, for adjacency purposes
 const NEIGHBORS = {
 	"R": ["A01", "A02", "B01", "B02"],
 	"O": ["A02", "A03", "B03", "B04"],
@@ -58,7 +58,7 @@ const NEIGHBORS = {
 	"E01": ["D01", "D02", "D03", "D04"],
 }
 
-#the connections for each tile, although some are excluded as they are repeats of previous connections
+#the connections for each tile although some are excluded as they are repeats of previous connections, for board lines
 const CONNECTIONS = {
 	"R": ["A01", "A02", "B01", "B02"],
 	"O": ["A02", "A03", "B03", "B04"],

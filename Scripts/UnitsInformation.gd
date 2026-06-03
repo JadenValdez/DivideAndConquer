@@ -1,5 +1,6 @@
 extends Node
 
+#tp values for each troop type
 const Units: Dictionary = {
 	"TroopLeader": {
 		"TP": 7

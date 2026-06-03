@@ -1,5 +1,6 @@
 extends Node
 
+#how much resources a player gains for each tile they own for each type
 const RESOURCES: Dictionary = {
 	"Home": {
 		"Food": 1,

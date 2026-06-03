@@ -56,7 +56,8 @@ func _host_game():
 	multiplayer.set_multiplayer_peer(peer)
 	
 	print("Waiting For Players!")
-	
+
+#set default values for a new player that just joined
 @rpc("any_peer")
 func _set_new_player(id: int):
 	if !GameManager.Players.has(id):
@@ -77,7 +78,8 @@ func _set_new_player(id: int):
 	if multiplayer.is_server():
 		GameManager.TotalPlayers += 1
 		_send_player_information.rpc(GameManager.Players, GameManager.TotalPlayers)
-	
+
+#synchronize player details to all players
 @rpc("any_peer", "call_local")
 func _send_player_information(player_info: Dictionary, total_players: int):
 	GameManager.Players = player_info.duplicate(true)

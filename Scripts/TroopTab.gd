@@ -55,7 +55,7 @@ func _ready() -> void:
 	else:
 		move_amount = 1
 
-
+#selects the troop when its troop tab is clicked
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
@@ -63,6 +63,7 @@ func _on_control_gui_input(event: InputEvent) -> void:
 				SignalBus.select_item.emit("None")
 				SignalBus.select_troop.emit(troop_id, troop_type, location)
 
+#moves the selected troop tab over slightly to show it is currently selected
 func _select_troop(id: int, _type: String, _troop_location: String) -> void:
 	if id == troop_id:
 		self.position = Vector2(20, tab_number * 50)
@@ -70,15 +71,18 @@ func _select_troop(id: int, _type: String, _troop_location: String) -> void:
 		self.position = Vector2(0, tab_number * 50)
 		
 
+#saves the chosen tile as part of this troop's move list depending on the current action
 func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 	if id == troop_id:
 		
+		#if placing the troop, set the troop's location to the chosen tile
 		if action == "Place":
 			location = location_space
 			troop_location.text = location
 			move_amount = 1
 			SignalBus.select_troop.emit(troop_id, troop_type, location_space)
 			
+		#if not moving the troop, adds a "pause" move to the move list
 		elif action == "Pause":
 			match move_amount:
 				1:
@@ -110,6 +114,7 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					m_4_location.text = "X"
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 					
+		#if moving the troop to a new tile, save that tile as the action for the current move
 		elif action == "Move":
 			match move_amount:
 				1:
@@ -141,7 +146,8 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					m_4_location.text = location_space
 					move_amount = 5
 					SignalBus.select_troop.emit(0, troop_type, location)
-			
+		
+		#if firing at a tile, save that tile as the fire action for the current move
 		elif action == "Fire":
 			match move_amount:
 				1:
@@ -173,14 +179,19 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					move_amount = 5
 					SignalBus.select_troop.emit(0, troop_type, location_space)
 
+#undo the most recent move for the current troop
 func _undo_move() -> void:
 	if troop_id == PlayerInformation.SelectedTroop:
 		match move_amount:
+			
+			#no moves to undo
 			0: 
 				location = "None"
 				troop_location.text = "None"
 				SignalBus.select_troop.emit(0, troop_type, "None")
 				
+			#if the troop was just crafted, undo the place action
+			#otherwise, nothing happens
 			1:
 				if recently_crafted:
 					location = "None"
@@ -190,6 +201,8 @@ func _undo_move() -> void:
 					
 				else:
 					SignalBus.select_troop.emit(0, troop_type, "None")
+			
+			#undo move 1 and move the troop to the previous location
 			2:
 				move_1.hide()
 				move_1.modulate = Color(1, 1, 1, 1)
@@ -201,6 +214,8 @@ func _undo_move() -> void:
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
 					SignalBus.select_troop.emit(troop_id, troop_type, location)
+			
+			#undo move 2 and move the troop to the previous location
 			3:
 				move_2.hide()
 				move_2.modulate = Color(1, 1, 1, 1)
@@ -215,6 +230,7 @@ func _undo_move() -> void:
 				else:
 					SignalBus.select_troop.emit(troop_id, troop_type, location)
 					
+			#undo move 3 and move the troop to the previous location
 			4:
 				move_3.hide()
 				move_3.modulate = Color(1, 1, 1, 1)
@@ -230,6 +246,8 @@ func _undo_move() -> void:
 					SignalBus.select_troop.emit(troop_id, troop_type, "None")
 				else:
 					SignalBus.select_troop.emit(troop_id, troop_type, location)
+			
+			#undo move 4 and move the troop to the previous location
 			5: 
 				move_4.hide()
 				move_4.modulate = Color(0, 0, 0, 1)
@@ -248,6 +266,7 @@ func _undo_move() -> void:
 				else:
 					SignalBus.select_troop.emit(troop_id, troop_type, location)
 	
+#sends the move list of the troop to the server, then resets all related variables
 func _get_attack_lists() -> void:
 	PlayerInformation.AttackList[troop_id] = {
 		"Team": GameManager.Players[multiplayer.get_unique_id()].Name,
@@ -283,16 +302,19 @@ func _get_attack_lists() -> void:
 	fire_move = "M0"
 	SignalBus.check_if_attacks_ready.emit()
 
+#removes the troop tab if the corresponding troop is defeated in conquest
 func _troop_defeated(troop: int) -> void:
 	if troop == troop_id:
 		SignalBus.move_troop_tabs.emit(tab_number)
 		queue_free()
 		
+#moves the lower troop tabs into position when a troop is defeated
 func _move_troop_tabs(defeated_tab_number: int) -> void:
 	if defeated_tab_number < tab_number:
 		tab_number -= 1
 		self.position = Vector2(0, tab_number * 50)
 		
+#updates the current status of the troop
 func _update_troop_info(troop: int, tp: int, location_troop: String) -> void:
 	if troop == troop_id:
 		troop_tp = tp
@@ -301,6 +323,7 @@ func _update_troop_info(troop: int, tp: int, location_troop: String) -> void:
 		location = location_troop
 		troop_location.text = location
 
+#show the item button if the troop is considered a valid target for the selected item
 func _show_troop_item_buttons(item_name: String) -> void:
 	item_button.hide()
 	match item_name:
@@ -311,6 +334,7 @@ func _show_troop_item_buttons(item_name: String) -> void:
 			if troop_type == "Troop":
 				item_button.show()
 
+#use the current item on the selected troop
 func _on_ib_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
@@ -328,6 +352,7 @@ func _on_ib_control_gui_input(event: InputEvent) -> void:
 						troop_tp += 1
 						SignalBus.use_item.emit("Upgraded Troop")
 						
+#hides the item button when a new item is initially selected
 func _select_item(item_name: String) -> void:
 	if item_name == "None":
 		item_button.hide()
