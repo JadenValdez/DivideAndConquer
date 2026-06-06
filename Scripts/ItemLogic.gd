@@ -17,11 +17,11 @@ func _select_item(item_name: String) -> void:
 		"Upgraded Troop":
 			SignalBus.show_troop_item_buttons.emit(item_name)
 		"Jet Plane":
-			SignalBus.show_plane_locations.emit(item_name)
+			SignalBus.craft_troop.emit("Jet Plane", 4)
 		"Bomber Plane":
-			SignalBus.show_plane_locations.emit(item_name)
+			SignalBus.craft_troop.emit("Bomber Plane", 4)
 		"Missile":
-			SignalBus.show_plane_locations.emit(item_name)
+			SignalBus.craft_troop.emit("Missile", 4)
 
 #outdated
 func UsePlaneItem(location: String) -> void:

@@ -74,15 +74,19 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					print("inactive")
 					
 				#if a troop stays at their location, they are idle
+				elif TroopInfo[troop][move] == "X":
+					if TroopInfo[troop].Type == "Jet Plane" || TroopInfo[troop].Type == "Bomber Plane" || TroopInfo[troop].Type == "Missile":
+						pass
+					else:
+						TroopLocations[location][troop] = "Idle"
+						TroopInfo[troop].Location = location
+						print("x location")
+					
 				elif TroopInfo[troop][move] == location:
+					
 					TroopLocations[location][troop] = "Idle"
 					TroopInfo[troop].Location = location
 					print("same location")
-				
-				elif TroopInfo[troop][move] == "X":
-					TroopLocations[location][troop] = "Idle"
-					TroopInfo[troop].Location = location
-					print("x location")
 					
 				#if a troop is active and does not stay at their location, move them
 				elif TroopInfo[troop][move] != "X":

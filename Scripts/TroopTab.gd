@@ -27,6 +27,8 @@ var tab_color: Color
 var move_amount: int
 var fire_move: String = "M0"
 
+var uses: int
+
 var recently_crafted: bool = true
 
 # Called when the node enters the scene tree for the first time.

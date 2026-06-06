@@ -35,6 +35,13 @@ func SelectTroop(troop_id: int, type: String, location: String) -> void:
 		CurrentAction = "Place"
 		SignalBus.show_placement_spaces.emit()
 		
+	#if the troop is a plane item, show the movement indicators on nearby tiles
+	elif type == "Jet Plane" || type == "Bomber Plane" || type == "Missile":
+		CurrentAction = "Move"
+		CurrentSpace = "00"
+		MoveableSpaces = TileNeighbors.NEIGHBORS[location]
+		SignalBus.show_movement_spaces.emit()
+		
 	#else, show the movement indicators on nearby tiles, and the pause indicator on the current tile
 	else:
 		CurrentAction = "Move"

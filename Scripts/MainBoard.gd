@@ -95,7 +95,15 @@ func _craft_troop(troop_type: String, tp: int) -> void:
 	instance.recently_crafted = true
 	
 	instance.tab_number = tab_number
-	instance.tab_color = GameManager.Players[multiplayer.get_unique_id()].Color
+	if troop_type == "Jet Plane" || troop_type == "Missile":
+		instance.tab_color = Color(0.5, 0.5, 0.5, 1)
+		instance.uses = 1
+	elif troop_type == "Bomber Plane":
+		instance.tab_color = Color(0.5, 0.5, 0.5, 1)
+		instance.uses = 2
+	else:
+		instance.tab_color = GameManager.Players[multiplayer.get_unique_id()].Color
+		instance.uses = 0
 	add_child(instance)
 	
 	tab_number += 1
