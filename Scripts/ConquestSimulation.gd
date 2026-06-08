@@ -69,18 +69,28 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 			for troop in TroopLocations[location].keys():
 				print(troop)
 				
+				if TroopInfo[troop].Type == "Jet Plane" || TroopInfo[troop].Type == "Bomber Plane" || TroopInfo[troop].Type == "Missile":
+					if TroopInfo[troop][move] == location || TroopInfo[troop][move] == "X":
+						TroopLocations[location][troop] = "Idle"
+						TroopInfo[troop].Location = location
+						print("same location")
+					else:
+						if !TroopLocations.has(TroopInfo[troop][move]):
+							TroopLocations[TroopInfo[troop][move]] = {}
+							
+						TroopLocations[location].erase(troop)
+						TroopLocations[TroopInfo[troop][move]][troop] = "Active"
+						TroopInfo[troop].Location = TroopInfo[troop][move]
+				
 				#if a troop has been part of a previous territory capture, they are inactive
 				if TroopLocations[location][troop] == "Inactive":
 					print("inactive")
 					
 				#if a troop stays at their location, they are idle
 				elif TroopInfo[troop][move] == "X":
-					if TroopInfo[troop].Type == "Jet Plane" || TroopInfo[troop].Type == "Bomber Plane" || TroopInfo[troop].Type == "Missile":
-						pass
-					else:
-						TroopLocations[location][troop] = "Idle"
-						TroopInfo[troop].Location = location
-						print("x location")
+					TroopLocations[location][troop] = "Idle"
+					TroopInfo[troop].Location = location
+					print("x location")
 					
 				elif TroopInfo[troop][move] == location:
 					
@@ -251,6 +261,24 @@ func calculate_troop_losses(winning_team: String, tp_loss: int) -> void:
 			WinningTeamTroops.append(troop)
 			
 	for troop in WinningTeamTroops:
+		if TroopInfo[troop].Type == "Bomber Plane":
+			if CurrentTPLoss >= 4:
+				CurrentTPLoss -= 4
+				if CurrentTPLoss == 0:
+					return
+			else:
+				return
+				
+	for troop in WinningTeamTroops:
+		if TroopInfo[troop].Type == "Jet Plane":
+			if CurrentTPLoss >= 4:
+				CurrentTPLoss -= 4
+				if CurrentTPLoss == 0:
+					return
+			else:
+				return
+			
+	for troop in WinningTeamTroops:
 		if TroopInfo[troop].Type == "MortarShot":
 			if CurrentTPLoss >= 5:
 				CurrentTPLoss -= 5
@@ -331,7 +359,10 @@ func calculate_troop_losses(winning_team: String, tp_loss: int) -> void:
 func battle_loss(team: String) -> void:
 	for troop in TroopLocations[CurrentLocation].keys():
 		if TroopInfo[troop].Team == team:
-			TroopLocations[CurrentLocation].erase(troop)
-			TroopInfo[troop].Status = "Dead"
-			#signal for defeating troop
-			pass
+			if TroopInfo[troop].Type == "Jet Plane" || TroopInfo[troop].Type == "Bomber Plane" || TroopInfo[troop].Type == "Missile":
+				pass
+			else:
+				TroopLocations[CurrentLocation].erase(troop)
+				TroopInfo[troop].Status = "Dead"
+				#signal for defeating troop
+				pass

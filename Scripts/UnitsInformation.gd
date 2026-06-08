@@ -22,4 +22,12 @@ const Units: Dictionary = {
 		"TP": 0,
 		"MortarShot": 5
 	},
+	
+	"Jet Plane": {
+		"TP": 4,
+	},
+	
+	"Bomber Plane": {
+		"TP": 4,
+	},
 }
