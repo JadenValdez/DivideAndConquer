@@ -59,9 +59,7 @@ func _get_tile_position(id: String) -> void:
 		
 #shows the placement indicator for owned tiles when placing a unit
 func _show_placement_spaces() -> void:
-	place.hide()
-	move.hide()
-	pause.hide()
+	_reset_tile_indicators()
 	for id in GameManager.Players[multiplayer.get_unique_id()].Territory:
 		if id == tile_id:
 			place.show()
@@ -69,20 +67,19 @@ func _show_placement_spaces() -> void:
 #shows the movement indicator for nearby tiles when moving a unit
 #shows the pause indicator for the current tile when moving a unit
 func _show_movement_spaces() -> void:
-	place.hide()
-	move.hide()
-	pause.hide()
+	_reset_tile_indicators()
 	for id in MovementLogic.MoveableSpaces:
 		if id == tile_id:
 			move.show()
 	if MovementLogic.CurrentSpace == tile_id:
-		pause.show()
+		if MovementLogic.CurrentAction == "Missile Move":
+			fire.show()
+		else:
+			pause.show()
 
 #shows the fire indicator for nearby tiles when in mortar firing mode
 func _mortar_firing_mode() -> void:
-	place.hide()
-	move.hide()
-	pause.hide()
+	_reset_tile_indicators()
 	for id in MovementLogic.MoveableSpaces:
 		if id == tile_id:
 			fire.show()
@@ -91,7 +88,7 @@ func _mortar_firing_mode() -> void:
 			
 #shows the movement indicator for nearby tiles when in mortar movement mode
 func _mortar_movement_mode() -> void:
-	fire.hide()
+	_reset_tile_indicators()
 	for id in MovementLogic.MoveableSpaces:
 		if id == tile_id:
 			move.show()

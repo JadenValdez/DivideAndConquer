@@ -38,7 +38,11 @@ func SelectTroop(troop_id: int, type: String, location: String) -> void:
 	#if the troop is a plane item, show the movement indicators on nearby tiles
 	elif type == "Jet Plane" || type == "Bomber Plane" || type == "Missile":
 		CurrentAction = "Move"
-		CurrentSpace = "00"
+		if type == "Missile":
+			CurrentSpace = location
+			CurrentAction = "Missile Move"
+		else:
+			CurrentSpace = "00"
 		MoveableSpaces = TileNeighbors.NEIGHBORS[location]
 		SignalBus.show_movement_spaces.emit()
 		
@@ -62,6 +66,15 @@ func SelectTile(tile_id: String) -> void:
 	elif CurrentAction == "Move":
 		if tile_id == CurrentSpace:
 			SignalBus.plan_troop_move.emit(SelectedTroop, "Pause", tile_id)
+		else:
+			for space in MoveableSpaces:
+				if tile_id == space:
+					SignalBus.plan_troop_move.emit(SelectedTroop, "Move", tile_id)
+					
+	#if moving a troop, save the tile location for that move
+	elif CurrentAction == "Missile Move":
+		if tile_id == CurrentSpace:
+			SignalBus.plan_troop_move.emit(SelectedTroop, "Detonate", tile_id)
 		else:
 			for space in MoveableSpaces:
 				if tile_id == space:

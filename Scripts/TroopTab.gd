@@ -180,6 +180,37 @@ func _plan_troop_move(id: int, action: String, location_space: String) -> void:
 					fire_move = "M4"
 					move_amount = 5
 					SignalBus.select_troop.emit(0, troop_type, location_space)
+					
+		elif action == "Detonate":
+			match move_amount:
+				1:
+					move_1.show()
+					move_1.modulate = Color(1, 0, 0, 1)
+					m_1_location.text = location
+					fire_move = "M1"
+					move_amount = 2
+					SignalBus.select_troop.emit(0, troop_type, location_space)
+				2:
+					move_2.show()
+					move_2.modulate = Color(1, 0, 0, 1)
+					m_2_location.text = location
+					fire_move = "M2"
+					move_amount = 3
+					SignalBus.select_troop.emit(0, troop_type, location_space)
+				3:
+					move_3.show()
+					move_3.modulate = Color(1, 0, 0, 1)
+					m_3_location.text = location
+					fire_move = "M3"
+					move_amount = 4
+					SignalBus.select_troop.emit(0, troop_type, location_space)
+				4:
+					move_4.show()
+					move_4.modulate = Color(1, 0, 0, 1)
+					m_4_location.text = location
+					fire_move = "M4"
+					move_amount = 5
+					SignalBus.select_troop.emit(0, troop_type, location_space)
 
 #undo the most recent move for the current troop
 func _undo_move() -> void:
