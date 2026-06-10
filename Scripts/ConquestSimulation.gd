@@ -103,12 +103,16 @@ func SimulateConquest(attack_lists: Dictionary) -> void:
 					
 					#if the troop is a mortar and shot this move, create a new MortarShot troop for this move
 					if TroopInfo[troop].FireMove == move:
-						TroopLocations[TroopInfo[troop][move]][troop + 900] = "Active"
-						TroopInfo[troop + 900] = {
-							"Team": TroopInfo[troop].Team,
-							"Type": "MortarShot",
-							"Status": "Alive"
-						}
+						if TroopInfo[troop].Type == "Missile":
+							pass
+							#should detonate the missile, destroy all troops on tile, and deal 6 tp to all neighboring tiles
+						else:
+							TroopLocations[TroopInfo[troop][move]][troop + 900] = "Active"
+							TroopInfo[troop + 900] = {
+								"Team": TroopInfo[troop].Team,
+								"Type": "MortarShot",
+								"Status": "Alive"
+							}
 						
 					#move the troop
 					else:

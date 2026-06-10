@@ -301,6 +301,8 @@ func _undo_move() -> void:
 	
 #sends the move list of the troop to the server, then resets all related variables
 func _get_attack_lists() -> void:
+	if troop_type == "Missile" && fire_move == "M0":
+		fire_move = "M4"
 	PlayerInformation.AttackList[troop_id] = {
 		"Team": GameManager.Players[multiplayer.get_unique_id()].Name,
 		"Type": troop_type,
